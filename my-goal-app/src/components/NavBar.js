@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function NavBar() {
+export default function NavBar(props) {
+    console.log(props)
     return (
         <div className="nav-bar">
             <ul>
-            <Link to='/'><li>Today</li></Link>
-                <li>All Tasks</li>
-                <li id="all-goals">All Goals</li>
+            <Link to='/today'><li>Today</li></Link>
+                <li>All Goals</li>
+                <li id="all-goals">{props.loggedinUser.username}</li>
             </ul>
         </div>
     )

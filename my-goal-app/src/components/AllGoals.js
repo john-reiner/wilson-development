@@ -8,6 +8,8 @@ export default function AllGoals() {
         <div>
             {/* This is AllGoals */}
             <Goal />
+            <GoalShowPage />
+            <Task />
         </div>
     )
 }

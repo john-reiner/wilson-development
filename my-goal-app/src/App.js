@@ -12,7 +12,7 @@ export default class  App extends Component {
     username: '',
     password: '',
     users: [],
-    loggedInUser: {}
+    loggedinUser: {}
   }
 
   componentDidMount = () => {
@@ -35,9 +35,10 @@ handleSubmit = e => {
 }
 loginUser = () => {
   let user = this.state.users.find(user => user.username === this.state.username)
+  console.log(user)
   if (user && user.password ===  this.state.password) {
     this.setState({
-      loggedInUser: user
+      loggedinUser: user
     })
   } else {
     alert('Wrong Username or Password')
@@ -48,15 +49,16 @@ loginUser = () => {
 
     let username = this.state.username
     let password = this.state.password
-    let users = this.state.users
-    let loggedinUser = this.state.loggedInUser
+    let loggedinUser = this.state.loggedinUser
+
+    console.log(this.state.loggedinUser)
+  
     return (
       <div className="App">
-        
-        <NavBar />
-        <MainBody/>
+        <NavBar loggedinUser={loggedinUser}/> 
+        <MainBody loggedinUser={loggedinUser}/>
         <Route exact path="/signup" render={() => <SignUp />} />
-        <Route exact path="/" render={() => <SignIn username={username} password={password} handleChange={this.handleChange} handlesubmit={this.handleSubmit}/>} />
+        <Route exact path="/" render={(routerProps) => <SignIn username={username} password={password} handleChange={this.handleChange} handlesubmit={this.handleSubmit} {...routerProps}/>} />
       </div>
   );
   }
