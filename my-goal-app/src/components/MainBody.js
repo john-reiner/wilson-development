@@ -7,11 +7,11 @@ import AllGoals from './AllGoals'
 
 
 
-export default function MainBody() {
+export default function MainBody(props) {
     return (
         <div>
             {/* This is the MainBody */}
-            <Route exact path="/today" render={() => <Today />} />
+            <Route exact path="/today" render={() => <Today loggedinUserGoals={props.loggedinUserGoals}/>} />
             <Route exact path="/calendar" render={() => <BigCalendar />} />
             <Route exact path="/goals" render={() => <AllGoals />} />
         </div>

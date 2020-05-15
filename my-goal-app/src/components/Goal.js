@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Goal() {
+export default function Goal(props) {
     return (
         <div>
-            This is a bunch of Goals
+            <p>{props.name}</p>
         </div>
     )
 }

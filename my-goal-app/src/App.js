@@ -35,7 +35,6 @@ handleSubmit = e => {
 }
 loginUser = () => {
   let user = this.state.users.find(user => user.username === this.state.username)
-  console.log(user)
   if (user && user.password ===  this.state.password) {
     this.setState({
       loggedinUser: user
@@ -50,13 +49,12 @@ loginUser = () => {
     let username = this.state.username
     let password = this.state.password
     let loggedinUser = this.state.loggedinUser
-
-    console.log(this.state.loggedinUser)
+    let loggedinUserGoals = loggedinUser.goals
   
     return (
       <div className="App">
         <NavBar loggedinUser={loggedinUser}/> 
-        <MainBody loggedinUser={loggedinUser}/>
+        <MainBody loggedinUserGoals={loggedinUserGoals}/>
         <Route exact path="/signup" render={() => <SignUp />} />
         <Route exact path="/" render={(routerProps) => <SignIn username={username} password={password} handleChange={this.handleChange} handlesubmit={this.handleSubmit} {...routerProps}/>} />
       </div>

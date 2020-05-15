@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Task() {
+export default function Task(props) {
     return (
         <div>
-            This is a bunch of Tasks
+            <p>{props.name}</p>
         </div>
     )
 }

@@ -8,8 +8,6 @@ import moment from "moment";
 
 const localizer = momentLocalizer(moment);
 
-
-
 export default class Today extends Component {
 
     state = {
@@ -26,7 +24,7 @@ export default class Today extends Component {
     render() {
         return (
             <div>
-            <TodaysTasks />
+            <TodaysTasks loggedinUserGoals={this.props.loggedinUserGoals}/>
                 <Calendar
                     localizer={localizer}
                     defaultDate={new Date()}
@@ -34,7 +32,7 @@ export default class Today extends Component {
                     events={this.state.events}
                     style={{ height: "50vh" }}
                 />
-            <TodaysGoals />
+            <TodaysGoals loggedinUserGoals={this.props.loggedinUserGoals}/>
             </div>
         )
     }

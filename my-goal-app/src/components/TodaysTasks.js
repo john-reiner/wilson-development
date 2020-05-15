@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react';
 import Task from './Task'
 
-export default function TodaysTasks() {
-    return (
-        <div>
-            {/* This is TodaysTasks */}
-            <Task />
-        </div>
-    )
+export default class TodaysTasks extends Component {
+    
+    renderTasks = () => {
+        return this.props.loggedinUserGoals.map(goal => {
+            return goal.tasks.map(task => {
+                return <Task name={task.name} />
+            });
+        })
+    }
+    render() {
+        return (
+            <div>
+                {this.renderTasks()}
+                <Task />
+            </div>
+        )
+    }
+
 }
