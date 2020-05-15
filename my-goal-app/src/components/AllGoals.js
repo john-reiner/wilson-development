@@ -6,9 +6,7 @@ import Goal from './Goal'
 export default function AllGoals() {
     return (
         <div>
-            This is AllGoals
-            <GoalShowPage />
-            <Task />
+            {/* This is AllGoals */}
             <Goal />
         </div>
     )

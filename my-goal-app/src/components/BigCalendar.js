@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
-import TodaysGoals from './TodaysGoals'
-import TodaysTasks from './TodaysTasks'
-
 import { Calendar, momentLocalizer } from "react-big-calendar"
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 
 const localizer = momentLocalizer(moment);
 
-
-
-export default class Today extends Component {
+export default class BigCalendar extends Component {
 
     state = {
         events: [
@@ -23,20 +18,18 @@ export default class Today extends Component {
             }
         ]
     };
+
     render() {
         return (
             <div>
-            <TodaysTasks />
                 <Calendar
                     localizer={localizer}
                     defaultDate={new Date()}
-                    defaultView="day"
+                    defaultView="month"
                     events={this.state.events}
-                    style={{ height: "50vh" }}
+                    style={{ height: "100vh" }}
                 />
-            <TodaysGoals />
             </div>
         )
     }
 }
-

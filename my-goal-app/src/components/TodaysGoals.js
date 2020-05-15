@@ -4,7 +4,7 @@ import Goal from './Goal'
 export default function TodaysGoals() {
     return (
         <div>
-            This is TodaysGoals
+            {/* This is TodaysGoals */}
             <Goal />
         </div>
     )
