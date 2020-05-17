@@ -11,9 +11,9 @@ export default function MainBody(props) {
     return (
         <div>
             {/* This is the MainBody */}
-            <Route exact path="/today" render={() => <Today loggedinUserGoals={props.loggedinUserGoals}/>} />
+            <Route exact path="/today" render={() => <Today loggedinUserGoals={props.loggedinUserGoals} handleGoalClick={props.handleGoalClick}/>} />
             <Route exact path="/calendar" render={() => <BigCalendar />} />
-            <Route exact path="/goals" render={() => <AllGoals />} />
+            <Route exact path="/goals" render={() => <AllGoals loggedinUserGoals={props.loggedinUserGoals} handleGoalClick={props.handleGoalClick}/>} />
         </div>
     )
 }

@@ -32,7 +32,7 @@ export default class Today extends Component {
                     events={this.state.events}
                     style={{ height: "50vh" }}
                 />
-            <TodaysGoals loggedinUserGoals={this.props.loggedinUserGoals}/>
+            <TodaysGoals loggedinUserGoals={this.props.loggedinUserGoals} handleGoalClick={this.props.handleGoalClick}/>
             </div>
         )
     }
