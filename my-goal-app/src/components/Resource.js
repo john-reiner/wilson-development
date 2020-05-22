@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function Resource() {
+export default function Resource(props) {
     return (
         <div>
-            {/* This is a Resource */}
+            <li>{props.name}</li>
+            <p>{props.description}</p>
         </div>
     )
 }

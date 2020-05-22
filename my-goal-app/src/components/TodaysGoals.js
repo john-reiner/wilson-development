@@ -1,16 +1,21 @@
 import React from 'react'
 import Goal from './Goal'
 
-export default function TodaysGoals(props) {
+export default function TodaysGoals(props){
 
-    const renderGoals = () => {
-        return props.loggedinUserGoals.map(goal => {
-            return <Goal name={goal.goal_name} key={goal.id} id={goal.id} handleGoalClick={props.handleGoalClick}/>
-        })
+    let renderGoals = () => {
+        if (props.goals.length > 1) {
+            return props.goals.map(goal => {
+                return <Goal description={goal.goal_description} id={goal.id} handleGoalClick={props.handleGoalClick} name={goal.goal_name} key={goal.id} />
+            })
+        }
     }
 
     return (
         <div>
+
+            <h2>Upcoming Goals</h2>
+
             {renderGoals()}
         </div>
     )
