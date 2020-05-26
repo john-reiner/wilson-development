@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Modal, Button, Form} from 'react-bootstrap'
 // import Dropzone from 'react-dropzone'
 
 
@@ -7,7 +8,6 @@ export default class NewResource extends Component {
         name: '',
         description: '',
         url: '',
-        file: '',
     }
 
     handleChange = e => {
@@ -38,28 +38,51 @@ export default class NewResource extends Component {
     }
 
     render() {
-        console.log(this.state.file)
         return (
-            <div>
-
-                <form onSubmit={this.onSubmit}>
-                    <label>
-                        Resource Name:
-                        <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-                    </label>
-                    <label>
-                        Resource Description:
-                        <textarea rows="10" cols="50" type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
-                    </label>
-                    <label>
-                        url:
-                        <input type="text" name="url" value={this.state.url} onChange={this.handleChange}/>
-                        <input type="file" id="file" name="file" accept="image/png, image/jpeg" value={this.state.file} onChange={this.handleChange}></input>
-                    </label>
-
-                    <input type="submit" value="Submit" />
-                </form> 
-            </div>
+            <Modal show={this.props.show} onHide={this.props.onHide}>
+                <Modal.Header closeButton>
+                <Modal.Title>Test Resource</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={this.onSubmit}>
+                        <Form.Group >
+                            <Form.Label>Resource Name:</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Task" name={'name'} value={this.state.name} onChange={this.handleChange} />
+                        </Form.Group>
+                        <Form.Group >
+                            <Form.Label>Description:</Form.Label>
+                            <Form.Control as="textarea" rows="3" placeholder="Enter Description" name={'description'} value={this.state.description} onChange={this.handleChange} />
+                        </Form.Group>
+                        <Form.Group >
+                            <Form.Label>URL:</Form.Label>
+                            <Form.Control type="text" placeholder="Enter URL" name={'url'} value={this.state.url} onChange={this.handleChange} />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" onClick={this.props.onHide}>
+                            Submit
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         )
     }
 }
+            // <div>
+
+            //     <form onSubmit={this.onSubmit}>
+            //         <label>
+            //             Resource Name:
+            //             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+            //         </label>
+            //         <label>
+            //             Resource Description:
+            //             <textarea rows="10" cols="50" type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
+            //         </label>
+            //         <label>
+            //             url:
+            //             <input type="text" name="url" value={this.state.url} onChange={this.handleChange}/>
+            //             <input type="file" id="file" name="file" accept="image/png, image/jpeg" value={this.state.file} onChange={this.handleChange}></input>
+            //         </label>
+
+            //         <input type="submit" value="Submit" />
+            //     </form> 
+            // </div>

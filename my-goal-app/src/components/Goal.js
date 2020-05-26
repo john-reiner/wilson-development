@@ -1,27 +1,30 @@
 import React from 'react'
 import {Card, Button} from 'react-bootstrap'
 import { LinkContainer } from "react-router-bootstrap";
-import { Link } from 'react-router-dom'
+
 
 export default function Goal(props) {
     return (
+        <Card style={{ width: '254px', height:'250px'}} onClick={() => props.handleGoalClick(props.id)}>
+            <Card.Img variant="top" as='div' style={{ backgroundColor: `rgb(${props.red},${props.green},${props.blue})`, width: '254px', height: '50px' }} />
+            <Card.Body>
+                <Card.Title>{props.name}</Card.Title>
+                <Button variant="primary" onClick={props.taskModalOpen}>
+            Add Task
+        </Button>
 
-        <LinkContainer to="/goal_showpage">
-            <Card style={{ width: '18rem' }}>
-                <Card.Body>
-                    <Card.Title>{props.name}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">{props.date}</Card.Subtitle>
-                    <Card.Text>
-                        {props.description}
-                    </Card.Text>
-                    <LinkContainer to="/add_task">
-                        <Card.Link >Add Task</Card.Link>
-                    </LinkContainer>
-                    <LinkContainer to='/add_resource'>
-                        <Card.Link >Add Resource</Card.Link>
-                    </LinkContainer>
-                </Card.Body>
-            </Card>
+        <Button variant="primary" onClick={props.resourceModalOpen}>
+            Add Resource
+        </Button>
+        <LinkContainer to="goal_showpage">
+        <Button variant="danger">
+            Show
+        </Button>
         </LinkContainer>
+            </Card.Body>
+            <Card.Footer>
+                <small className="text-muted">{props.date}</small>
+            </Card.Footer>
+        </Card>
     )
 }

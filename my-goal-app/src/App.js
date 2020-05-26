@@ -6,8 +6,6 @@ import MainBody from './components/MainBody'
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
 import GoalShowPage from './components/GoalShowPage'
-import NewTask from './components/NewTask'
-import NewResource from './components/NewResource'
 import NewGoal from './components/NewGoal'
 
 
@@ -21,6 +19,8 @@ export default class  App extends Component {
     clickedGoalid: '',
     completeTaskids: [],
     deleteModalShow: false,
+    taskModalShow: false,
+    resourceModalShow: false,
     completedGoal: {}
   }
 
@@ -55,6 +55,7 @@ export default class  App extends Component {
   }
 
   handleGoalClick = id => {
+    
     this.setState({
       clickedGoalid: id
     })
@@ -84,7 +85,6 @@ export default class  App extends Component {
           if (target.length !== 0 ) {
             if (target.every(v => this.state.completeTaskids.includes(v))) {
               this.deleteModalOpen()
-              // alert(`you completed ${goal.goal_name}!!`)
               this.setState({
                 completeTaskids: [...this.state.completeTaskids].filter(ids => !target.includes(ids)),
                 completedGoal: goal
@@ -101,6 +101,22 @@ export default class  App extends Component {
 
   deleteModalClose = () => {
     this.setState({deleteModalShow: false})
+  }
+
+  taskModalOpen = () => {
+    this.setState({taskModalShow: true})
+  }
+
+  taskModalClose = () => {
+    this.setState({taskModalShow: false})
+  }
+
+  resourceModalOpen = () => {
+    this.setState({resourceModalShow: true})
+  }
+
+  resourceModalClose = () => {
+    this.setState({resourceModalShow: false})
   }
 
   completeGoal = (id) => {
@@ -125,17 +141,18 @@ export default class  App extends Component {
     let clickedGoalid = this.state.clickedGoalid
     let completeTaskids = this.state.completeTaskids
     let deleteModalShow = this.state.deleteModalShow
+    let taskModalShow = this.state.taskModalShow
+    let resourceModalShow = this.state.resourceModalShow
     this.checkUserTasks()
     let completedGoal = this.state.completedGoal
+
     return (
       <div className="App">
         <NavBar loggedinUser={loggedinUser}/> 
-        <MainBody completeGoal={this.completeGoal} completedGoal={completedGoal} deleteModalClose={this.deleteModalClose} deleteModalShow={deleteModalShow} loggedinUser={loggedinUser} handleGoalClick={this.handleGoalClick} completeTaskids={completeTaskids} completeTask={this.completeTask}/>
+        <MainBody resourceModalClose={this.resourceModalClose} resourceModalOpen={this.resourceModalOpen} resourceModalShow={resourceModalShow} taskModalShow={taskModalShow} taskModalClose={this.taskModalClose} taskModalOpen={this.taskModalOpen} clickedGoalid={clickedGoalid} completeGoal={this.completeGoal} completedGoal={completedGoal} deleteModalClose={this.deleteModalClose} deleteModalShow={deleteModalShow} loggedinUser={loggedinUser} handleGoalClick={this.handleGoalClick} completeTaskids={completeTaskids} completeTask={this.completeTask}/>
         <Route exact path="/signup" render={() => <SignUp />} />
-        <Route exact path="/" render={(routerProps) => <SignIn username={username} password={password} handleChange={this.handleChange} handlesubmit={this.handleSubmit} />} />
+        <Route exact path="/" render={(routerProps) => <SignIn loggedinUser={loggedinUser} username={username} password={password} handleChange={this.handleChange} handlesubmit={this.handleSubmit} />} />
         <Route exact path="/goal_showpage" render={() => <GoalShowPage clickedGoalid={clickedGoalid} completeTaskids={completeTaskids} completeTask={this.completeTask} />} />
-        <Route exact path="/add_task" render={() => <NewTask clickedGoalid={clickedGoalid}/>} />
-        <Route exact path="/add_resource" render={() => <NewResource clickedGoalid={clickedGoalid} />} />
         <Route exact path="/add_goal" render={() => <NewGoal loggedinUser={loggedinUser}/>} />
       </div>
     );

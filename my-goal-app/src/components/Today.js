@@ -25,7 +25,9 @@ export default class Today extends Component {
             let tasks = []
             user.goals.forEach(goal => {
                 if (goal.tasks.length > 0 && !goal.is_complete) {
+                    let rgb = `rgb(${goal.red},${goal.green},${goal.blue})`
                     goal.tasks.forEach(task => {
+                        task.rgb = rgb
                         tasks.push(task)
                     })
                 }
@@ -55,24 +57,18 @@ export default class Today extends Component {
         let resources = this.state.resources
         
         return (
-            <Container>
-                <Row>
+            <Container >
+                <Row style={{backgroundColor: '#333', color: 'white', padding: '10px', borderRadius: '5px', marginBottom: '30px'}}>
+                    <Col><h2>Tasks</h2></Col>
+                    <Col xs={6}> <h2>Resources</h2></Col>
+                    <Col><h2>Goals</h2></Col>
+                </Row>
+                <Row style={{backgroundColor: '#333',  padding: '20px', borderRadius: '5px', height: '70vh', overflow: 'scroll'}}>
                     <Col> <TodaysTasks completeTask={this.props.completeTask} completeTaskids={this.props.completeTaskids} tasks={tasks}/></Col>
-                    <Col xs={6}> <TodaysResources resources={resources} /> </Col>
-                    <Col> <TodaysGoals goals={goals} loggedinUser={this.props.loggedinUser} handleGoalClick={this.props.handleGoalClick}/> </Col>
+                    <Col xs={6}> <TodaysResources loggedinUser={this.props.loggedinUser} resources={resources} /> </Col>
+                    <Col> <TodaysGoals resourceModalOpen={this.props.resourceModalOpen} taskModalOpen={this.props.taskModalOpen} goals={goals} loggedinUser={this.props.loggedinUser} handleGoalClick={this.props.handleGoalClick}/> </Col>
                 </Row>
             </Container>
-            // <div className="row">
-            //     <div className="column">
-            //         <TodaysTasks completeTask={this.props.completeTask} completeTaskids={this.props.completeTaskids} tasks={tasks}/>
-            //     </div>
-            //     <div className="column">
-            //         <TodaysResources resources={resources} />
-            //     </div>
-            //     <div className="column">
-            //         <TodaysGoals goals={goals} loggedinUser={this.props.loggedinUser} handleGoalClick={this.props.handleGoalClick}/>
-            //     </div>
-            // </div>
         )
     }
 }

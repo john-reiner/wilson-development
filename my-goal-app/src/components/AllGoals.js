@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {Container, Row, Col} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import {Container, Row, Button, Col, CardDeck} from 'react-bootstrap'
+import { LinkContainer } from "react-router-bootstrap";
 import Goal from './Goal'
 
 export default class AllGoals extends Component {
@@ -10,9 +10,21 @@ export default class AllGoals extends Component {
     }
 
     renderGoals = () => {
-        if (this.state.goals.length > 1) {
+        if (this.state.goals.length > 0) {
             return this.state.goals.map(goal => {
-                return <Goal description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={this.props.handleGoalClick} name={goal.goal_name} key={goal.id} />
+                if (!goal.is_complete) {
+                    return <Goal red={goal.red} green={goal.green} blue={goal.blue} description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={this.props.handleGoalClick} name={goal.goal_name} key={goal.id} />
+                }
+            })
+        }
+    }
+
+    renderCompletedGoals = () => {
+        if (this.state.goals.length > 0) {
+            return this.state.goals.map(goal => {
+                if (goal.is_complete) {
+                    return <Goal red={goal.red} green={goal.green} blue={goal.blue} description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={this.props.handleGoalClick} name={goal.goal_name} key={goal.id} />
+                }
             })
         }
     }
@@ -26,19 +38,52 @@ export default class AllGoals extends Component {
     }
 
     render () {
-
         return (
-            <div>
-                <Link to="/add_goal"><div>
-                    Add a Goal
-                </div></Link>
-                <Container fluid>
-                    <Row>
-                        <Col>{this.renderGoals()}</Col>
-                    </Row>
-                </Container>
-                
-            </div>
+            <Container style={{backgroundColor: '#333', color: 'white'}}>
+                <Row>
+                    <Col>
+                        <LinkContainer to='/add_goal'>
+                            <Button variant="secondary" size="lg" block>
+                                Add A Goal
+                            </Button>
+                        </LinkContainer>
+                    </Col>
+                </Row>
+                <Row>
+                    <h2>Goals</h2>
+                    <CardDeck style={{overflow: 'scroll'}}>
+                        {this.renderGoals()}
+                    </CardDeck>
+                </Row>
+                <Row>
+                    <Col>
+                        
+                    </Col>
+                </Row>
+            </Container>
         )        
     }
 }
+            // <Container >
+            //     <Row>
+            //         <Col>                
+            //             <LinkContainer to='/add_goal'>
+            //             <Button variant="secondary" size="lg" block style={{width: '50%'}}>
+            //                 Add A Goal
+            //             </Button>
+            //             </LinkContainer>
+                        
+            //         </Col>
+            //     </Row>
+            //     <Row style={{backgroundColor: '#333', color: 'white'}}>
+            //         <Col style={{display: 'inline-flex', padding: '30px', overflow: 'scroll'}}>
+            //             <h2 style={{float: 'top'}}>Pending Goals</h2>
+            //             <br></br><br></br>
+            //             
+            //         </Col>
+            //     </Row>
+            //     <h2>Completed Goals</h2>
+            //     <Row>
+            //         {this.renderCompletedGoals()}
+            //     </Row>
+            // </Container>

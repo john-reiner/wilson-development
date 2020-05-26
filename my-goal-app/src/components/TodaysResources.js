@@ -1,23 +1,47 @@
-import React from 'react';
-import Resource from './Resource'
+import React, { Component } from 'react';
+import {Carousel} from 'react-bootstrap'
+import CarouselResource from './CarouselResource';
 
-export default function TodaysResources(props) {
+export default class TodaysResources extends Component {
 
-    const renderResources = () => {
-        if (props.resources.length > 1) {
-            return props.resources.map(resource => {
-                return <Resource name={resource.name} description={resource.description} key={resource.id}/>
-            })
-        }
+
+
+    render() {
+
+
+
+        return (
+        <div>
+            <Carousel style={{width: '100%', height: '400px', backgroundColor: '#333'}}>
+                <Carousel.Item>
+                    <div style={{width: '100%', height: '400px', backgroundColor: '#888'}} >
+                        <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEVVVVURwN3rAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII='></img>
+                    </div>
+                    <Carousel.Caption>
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+
+
+                    <Carousel.Caption>
+                    <h3>Second slide label</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+
+
+                    <Carousel.Caption>
+                    <h3>Third slide label</h3>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                </Carousel.Item>
+                </Carousel>
+        </div> 
+    )
     }
 
-    return (
-        <div className="task-container">
-            <h2>Resources</h2>
-            <ul>
-                {renderResources()}
-            </ul>
-        </div>
-    )
 
-}
+}        

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Orbitron&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
 
 .main-body {
   padding-top: 46px;
@@ -11,3 +11,17 @@
   border: dotted #333 1px;
   text-align: center;
 }
+
+.all-goals {
+  background-color: #333;
+  display: grid;
+}
+
+h2 {
+  text-align: center;
+}
+
+body {
+  font-family: 'Chelsea Market', cursive;
+}
+

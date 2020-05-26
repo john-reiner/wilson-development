@@ -1,27 +1,29 @@
 import React, { Component } from 'react'
+import {Container, Row, Col, Jumbotron, Button} from 'react-bootstrap'
 import Resource from './Resource'
 import Task from './Task'
-import { Link } from 'react-router-dom'
 
 export default class GoalShowPage extends Component {
 
     state = {
-        goal: null
+        goal: ''
     }
 
     renderTasks = () => {
         
-        if (this.state.goal !== null) {
+        if (this.state.goal !== '') {
+            let rgb = `rgb(${this.state.goal.red},${this.state.goal.green},${this.state.goal.blue})`
             return this.state.goal.tasks.map(task => {
-                return <Task key={task.id} completeTask={this.props.completeTask} completeTaskids={this.props.completeTaskids} id={task.id} name={task.name} description={task.description}/>
+                console.log(rgb)
+                return <Task rgb={rgb} id={task.id} completeTask={this.props.completeTask} completeTaskids={this.props.completeTaskids} name={task.name} description={task.description} key={task.id}/>
             })
         }
 
     }
     renderResources = () => {
-        if (this.state.goal !== null) {
+        if (this.state.goal !== '') {
             return this.state.goal.goal_resources.map(resource => {
-                return <Resource name={resource.name} description={resource.description}/>
+                return <Resource key={resource.id} name={resource.name} description={resource.description}/>
             })
         }
     }
@@ -36,24 +38,45 @@ export default class GoalShowPage extends Component {
 
     
     render() {
-        
         return (
-            <div>
-                GOAL
-                <p>{this.state.goal_name}</p>
-                <Link to="/add_task"><div>
-                    Add a Task
-                </div></Link>
-                TASKS
-                {this.renderTasks()}
-                <Link to="/add_resource"><div>
-                    Add a Resource
-                </div></Link>
-                RESOURCES
-                {this.renderResources()}
-            </div>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <Jumbotron style={{ border: `solid rgb(${this.state.goal.red},${this.state.goal.green},${this.state.goal.blue}) 4px`}}>
+                            <h1>{this.state.goal.goal_name}</h1>
+                            <p>{this.state.goal.goal_description}</p>
+                            <p>
+                                <Button variant="primary">Add Task</Button>
+                                <Button variant="primary">Add Resource</Button>
+                            </p>
+                        </Jumbotron>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {this.renderTasks()}
+                    </Col>
+                    <Col>
+                        {this.renderResources()}
+                    </Col>
+                </Row>
+            </Container>
         )    
     }
 
 
-}
+}           
+//  <div>
+//                 GOAL
+//                 <p>{this.state.goal_name}</p>
+//                 <Link to="/add_task"><div>
+//                     Add a Task
+//                 </div></Link>
+//                 TASKS
+//                 {this.renderTasks()}
+//                 <Link to="/add_resource"><div>
+//                     Add a Resource
+//                 </div></Link>
+//                 RESOURCES
+//                 {this.renderResources()}
+//             </div>
