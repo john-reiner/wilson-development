@@ -49,13 +49,50 @@ export default class Today extends Component {
         })
     }
 
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevProps.confirmedCompletedGoal !== this.props.confirmedCompletedGoal || prevProps.taskModalOpen !== this.props.taskModalShow) {
+            fetch(`http://localhost:3000/api/v1/users/${this.props.loggedinUser.id}`)
+            .then(response => response.json())
+            .then(user => {
+                let tasks = []
+                user.goals.forEach(goal => {
+                    if (goal.tasks.length > 0 && !goal.is_complete) {
+                        let rgb = `rgb(${goal.red},${goal.green},${goal.blue})`
+                        goal.tasks.forEach(task => {
+                            task.rgb = rgb
+                            tasks.push(task)
+                        })
+                    }
+                });
+                this.setState({tasks})
+            })
+            fetch(`http://localhost:3000/api/v1/users/${this.props.loggedinUser.id}`)
+            .then(response => response.json())
+            .then(user => {
+                this.setState({goals: user.goals.filter(goal => !goal.is_complete)})
+            })
+            fetch(`http://localhost:3000/api/v1/users/${this.props.loggedinUser.id}`)
+            .then(response => response.json())
+            .then(user => {
+                let resources = []
+                user.goals.forEach(goal => {
+                    if (goal.goal_resources.length > 0 && !goal.is_complete) {
+                        goal.goal_resources.forEach(resource => {
+                            resources.push(resource)
+                        })
+                    }
+                });
+                this.setState({resources})
+            })
+        }
+    }
+
 
     render() {
 
         let goals = this.state.goals
         let tasks = this.state.tasks
         let resources = this.state.resources
-        
         return (
             <Container >
                 <Row style={{backgroundColor: '#333', color: 'white', padding: '10px', borderRadius: '5px', marginBottom: '30px'}}>

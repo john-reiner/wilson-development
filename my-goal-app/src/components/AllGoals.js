@@ -39,25 +39,34 @@ export default class AllGoals extends Component {
 
     render () {
         return (
-            <Container style={{backgroundColor: '#333', color: 'white'}}>
+            <Container style={{backgroundColor: '#333', color: 'white', borderRadius: '5px'}}>
                 <Row>
-                    <Col>
+                    <Col style={{margin: '10px'}}>
                         <LinkContainer to='/add_goal'>
-                            <Button variant="secondary" size="lg" block>
+                            <Button variant="secondary" size="lg" block style={{width: '50%'}}>
                                 Add A Goal
                             </Button>
                         </LinkContainer>
                     </Col>
                 </Row>
                 <Row>
-                    <h2>Goals</h2>
-                    <CardDeck style={{overflow: 'scroll'}}>
-                        {this.renderGoals()}
-                    </CardDeck>
+                    <Col>
+                        <h2>Goals</h2>
+                    </Col>
                 </Row>
                 <Row>
                     <Col>
-                        
+                        {this.renderGoals()}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h2>Completed</h2>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {this.renderCompletedGoals()}
                     </Col>
                 </Row>
             </Container>
@@ -72,7 +81,6 @@ export default class AllGoals extends Component {
             //                 Add A Goal
             //             </Button>
             //             </LinkContainer>
-                        
             //         </Col>
             //     </Row>
             //     <Row style={{backgroundColor: '#333', color: 'white'}}>

@@ -26,6 +26,7 @@ export default class NewTask extends Component {
                     name: this.state.name,
                 })
             })
+            this.setState({name: ''})
         } else {
             alert('Feilds are empty')
         }
@@ -53,17 +54,3 @@ export default class NewTask extends Component {
         )
     }
 }
-            // <div>
-                        // <label>
-                        //     Task Description:
-                        //     <textarea rows="10" cols="50" type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
-                        // </label>
-            //     {/*   */}
-            // </div>
-            // <form onSubmit={this.onSubmit}>
-            //             <label>
-            //                 Task:
-            //             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-            //             </label>
-            //             <input type="submit" value="Submit" />
-            //         </form>

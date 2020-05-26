@@ -2,30 +2,30 @@ import React, { Component } from 'react'
 import {Form, Button, Jumbotron, Container, Row, Col} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
+
+
 export default class SignIn extends Component {
 
     render() {
-        
         return (
             <Container >
                 <Row>
                     <Col lg={12} >   
                         <Jumbotron style={{backgroundColor: '#333', color: 'white', display: 'inline-block', width: '100%'}}>
                                 <img
-                                alt=""
-                                src="wilson.png"
-                                width="200"
-                                height="200"
-                                className="d-inline-block align-top"
-                                style={{verticalAlign: 'middle', textAlign: 'center', float: 'left', marginRight: '70px'}}
-                            />
+                                    alt=""
+                                    src="wilson.png"
+                                    width="200"
+                                    height="200"
+                                    className="d-inline-block align-top"
+                                    style={{verticalAlign: 'middle', textAlign: 'center', float: 'left', marginRight: '70px'}}
+                                />
                             <h1>Welcome to <span style={{color: 'rgb(214, 17, 18)'}}>Wilson</span></h1>
                             <h3>Get Off Your Island!</h3>
                             <p>
                                 A simple app to keep track of your goals, tasks, and resources... all in one place.
                             </p>
                             <p>
-                                <Button variant="secondary">Login</Button>
                             </p>
                         </Jumbotron>
                     </Col>
@@ -44,11 +44,12 @@ export default class SignIn extends Component {
                             <Form.Text className="text-muted">
                                 Not registered? <Link to='/signup' href="#">Create an account</Link>
                             </Form.Text>
-                            {/* <LinkContainer to='/today'> */}
-                            <Button variant="secondary" type="submit">
-                                Submit
-                            </Button>
-                            {/* </LinkContainer> */}
+                            
+                                <Button variant="secondary" type="submit">Submit</Button>
+                            
+                                
+                            
+                            
                         </Form>
                     </Col>
                 </Row>
