@@ -13,7 +13,7 @@ export default class AllGoals extends Component {
         if (this.state.goals.length > 0) {
             return this.state.goals.map(goal => {
                 if (!goal.is_complete) {
-                    return <Goal red={goal.red} green={goal.green} blue={goal.blue} description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={this.props.handleGoalClick} name={goal.goal_name} key={goal.id} />
+                    return <Goal resourceModalOpen={this.props.resourceModalOpen} taskModalOpen={this.props.taskModalOpen} red={goal.red} green={goal.green} blue={goal.blue} description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={this.props.handleGoalClick} name={goal.goal_name} key={goal.id} />
                 }
             })
         }

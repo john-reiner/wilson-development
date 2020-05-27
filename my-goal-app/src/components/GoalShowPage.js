@@ -14,7 +14,6 @@ export default class GoalShowPage extends Component {
         if (this.state.goal !== '') {
             let rgb = `rgb(${this.state.goal.red},${this.state.goal.green},${this.state.goal.blue})`
             return this.state.goal.tasks.map(task => {
-                console.log(rgb)
                 return <Task rgb={rgb} id={task.id} completeTask={this.props.completeTask} completeTaskids={this.props.completeTaskids} name={task.name} description={task.description} key={task.id}/>
             })
         }
@@ -23,9 +22,20 @@ export default class GoalShowPage extends Component {
     renderResources = () => {
         if (this.state.goal !== '') {
             return this.state.goal.goal_resources.map(resource => {
-                return <Resource key={resource.id} name={resource.name} description={resource.description}/>
+                return <Resource url={resource.url} key={resource.id} name={resource.name} description={resource.description}/>
             })
         }
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevProps.newTaskId !== this.props.newTaskId) {
+            fetch(`http://localhost:3000/api/v1/goals/${this.props.clickedGoalid}`)
+            .then(response => response.json())
+            .then(goal => {
+                this.setState({goal})
+            })       
+        }
+
     }
 
     componentDidMount = () => {
@@ -38,16 +48,17 @@ export default class GoalShowPage extends Component {
 
     
     render() {
+        console.log(this.props)
         return (
-            <Container fluid>
+            <Container fluid style={{backgroundColor: '#333', padding: '50px'}}>
                 <Row>
                     <Col>
                         <Jumbotron style={{ border: `solid rgb(${this.state.goal.red},${this.state.goal.green},${this.state.goal.blue}) 4px`}}>
                             <h1>{this.state.goal.goal_name}</h1>
                             <p>{this.state.goal.goal_description}</p>
                             <p>
-                                <Button variant="primary">Add Task</Button>
-                                <Button variant="primary">Add Resource</Button>
+                                <Button variant="secondary" onClick={this.props.taskModalOpen}>Add Task</Button>
+                                <Button variant="secondary" onClick={this.props.resourceModalOpen}>Add Resource</Button>
                             </p>
                         </Jumbotron>
                     </Col>

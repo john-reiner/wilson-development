@@ -22,7 +22,9 @@ export default class  App extends Component {
     taskModalShow: false,
     resourceModalShow: false,
     completedGoal: {},
-    confirmedCompletedGoal: {}
+    confirmedCompletedGoal: {},
+    newTaskId: '',
+    newResourceId: '',
   }
 
   componentDidMount = () => {
@@ -147,6 +149,13 @@ export default class  App extends Component {
     this.deleteModalClose()
   }
 
+  getNewTaskId = (id) => {
+    this.setState({newTaskId: id})
+  }
+  getNewResourceId = (id) => {
+    this.setState({newResourceId: id})
+  }
+
   render() {
     
     let username = this.state.username
@@ -159,14 +168,16 @@ export default class  App extends Component {
     let resourceModalShow = this.state.resourceModalShow
     let completedGoal = this.state.completedGoal
     let confirmedCompletedGoal = this.state.confirmedCompletedGoal
-
+    let newTaskId = this.state.newTaskId
+    let newResourceId = this.state.newResourceId
+    
     return (
       <div className="App">
         <NavBar loggedinUser={loggedinUser}/> 
-        <MainBody confirmedCompletedGoal={confirmedCompletedGoal} resourceModalClose={this.resourceModalClose} resourceModalOpen={this.resourceModalOpen} resourceModalShow={resourceModalShow} taskModalShow={taskModalShow} taskModalClose={this.taskModalClose} taskModalOpen={this.taskModalOpen} clickedGoalid={clickedGoalid} completeGoal={this.completeGoal} completedGoal={completedGoal} deleteModalClose={this.deleteModalClose} deleteModalShow={deleteModalShow} loggedinUser={loggedinUser} handleGoalClick={this.handleGoalClick} completeTaskids={completeTaskids} completeTask={this.completeTask}/>
+        <MainBody newTaskId={newTaskId} newResourceId={newResourceId} getNewResourceId={this.getNewResourceId} newResourceId={newResourceId} getNewTaskId={this.getNewTaskId} confirmedCompletedGoal={confirmedCompletedGoal} resourceModalClose={this.resourceModalClose} resourceModalOpen={this.resourceModalOpen} resourceModalShow={resourceModalShow} taskModalShow={taskModalShow} taskModalClose={this.taskModalClose} taskModalOpen={this.taskModalOpen} clickedGoalid={clickedGoalid} completeGoal={this.completeGoal} completedGoal={completedGoal} deleteModalClose={this.deleteModalClose} deleteModalShow={deleteModalShow} loggedinUser={loggedinUser} handleGoalClick={this.handleGoalClick} completeTaskids={completeTaskids} completeTask={this.completeTask}/>
         <Route exact path="/signup" render={() => <SignUp />} />
         <Route exact path="/" render={(routerProps) => <SignIn loggedinUser={loggedinUser} username={username} password={password} handleChange={this.handleChange} handlesubmit={this.handleSubmit} />} />
-        <Route exact path="/goal_showpage" render={() => <GoalShowPage clickedGoalid={clickedGoalid} completeTaskids={completeTaskids} completeTask={this.completeTask} />} />
+        <Route exact path="/goal_showpage" render={() => <GoalShowPage newTaskId={newTaskId} newResourceId={newResourceId}  resourceModalOpen={this.resourceModalOpen} taskModalOpen={this.taskModalOpen} clickedGoalid={clickedGoalid} completeTaskids={completeTaskids} completeTask={this.completeTask} />} />
         <Route exact path="/add_goal" render={() => <NewGoal loggedinUser={loggedinUser}/>} />
       </div>
     );

@@ -3,6 +3,7 @@
 .main-body {
   padding-top: 46px;
   
+  
 }
 
 .drop-container {
@@ -23,5 +24,6 @@ h2 {
 
 body {
   font-family: 'Chelsea Market', cursive;
+  background-color: cornflowerblue;
 }
 

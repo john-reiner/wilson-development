@@ -26,6 +26,11 @@ export default class NewTask extends Component {
                     name: this.state.name,
                 })
             })
+            .then(response => response.json())
+            .then(task => {
+                // console.log(task.data.id)
+                this.props.getNewTaskId(task.data.id)
+            })
             this.setState({name: ''})
         } else {
             alert('Feilds are empty')

@@ -29,9 +29,13 @@ export default class NewResource extends Component {
                     name: this.state.name,
                     description: this.state.description,
                     url: this.state.url
-                    
                 })
             })
+            .then(response => response.json())
+            .then(resource => {
+                this.props.getNewResourceId(resource.data.id)
+            })
+            this.setState({name: '', description:'', url: ''})
         } else {
             alert('Feilds are empty')
         }
@@ -41,21 +45,21 @@ export default class NewResource extends Component {
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
                 <Modal.Header closeButton>
-                <Modal.Title>Test Resource</Modal.Title>
+                <Modal.Title>New Resource</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={this.onSubmit}>
                         <Form.Group >
                             <Form.Label>Resource Name:</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Task" name={'name'} value={this.state.name} onChange={this.handleChange} />
+                            <Form.Control type="text" placeholder="Required" name={'name'} value={this.state.name} onChange={this.handleChange} />
                         </Form.Group>
                         <Form.Group >
                             <Form.Label>Description:</Form.Label>
-                            <Form.Control as="textarea" rows="3" placeholder="Enter Description" name={'description'} value={this.state.description} onChange={this.handleChange} />
+                            <Form.Control as="textarea" rows="3" placeholder="Optional" name={'description'} value={this.state.description} onChange={this.handleChange} />
                         </Form.Group>
                         <Form.Group >
                             <Form.Label>URL:</Form.Label>
-                            <Form.Control type="text" placeholder="Enter URL" name={'url'} value={this.state.url} onChange={this.handleChange} />
+                            <Form.Control type="text" placeholder="Required" name={'url'} value={this.state.url} onChange={this.handleChange} />
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={this.props.onHide}>
                             Submit

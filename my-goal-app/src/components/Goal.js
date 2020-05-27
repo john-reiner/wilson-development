@@ -9,20 +9,15 @@ export default function Goal(props) {
             <Card.Img variant="top" as='div' style={{ backgroundColor: `rgb(${props.red},${props.green},${props.blue})`, width: '254px', height: '50px' }} />
             <Card.Body>
                 <Card.Title style={{color: 'black'}}>{props.name}</Card.Title>
-                <Button variant="primary" onClick={props.taskModalOpen}>
-            Add Task
-        </Button>
-
-        <Button variant="primary" onClick={props.resourceModalOpen}>
-            Add Resource
-        </Button>
-        <LinkContainer to="goal_showpage">
-        <Button variant="danger">
-            Show
-        </Button>
-        </LinkContainer>
-            </Card.Body>
-            <Card.Footer>
+                    {props.taskModalOpen && props.resourceModalOpen ? <Button variant="primary" onClick={props.taskModalOpen}>Add Task</Button> : null}
+                    {props.resourceModalOpen ? <Button variant="primary" onClick={props.resourceModalOpen}>Add Resource</Button> : null}
+                <LinkContainer to="goal_showpage">
+                <Button variant="danger">
+                    Show
+                </Button>
+                </LinkContainer>
+                </Card.Body>
+                <Card.Footer>
                 <small className="text-muted">{props.date}</small>
             </Card.Footer>
         </Card>

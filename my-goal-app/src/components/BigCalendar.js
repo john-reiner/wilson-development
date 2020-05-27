@@ -16,7 +16,7 @@ export default class BigCalendar extends Component {
         fetch(`http://localhost:3000/api/v1/users/${this.props.loggedinUser.id}`)
         .then(response => response.json())
         .then(user => {
-            user.goals.forEach(goal => {
+                        user.goals.forEach(goal => {
                 let newEvent = {
                     start: moment(goal.date).toDate(),
                     end: moment(goal.date)
@@ -43,7 +43,7 @@ export default class BigCalendar extends Component {
                             defaultDate={new Date()}
                             defaultView="month"
                             events={this.state.events}
-                            style={{ height: "100vh" }}
+                            style={{ height: "100vh", backgroundColor: 'white' }}
                             eventPropGetter={event => ({
                                 style: {
                                     backgroundColor: event.backgroundColor
