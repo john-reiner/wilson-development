@@ -3,15 +3,17 @@ import {Modal, Button, Form} from 'react-bootstrap'
 
 export default function NewResource(props) {
 
-    const [resource, setResource] = useState({})
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+    const [url, setUrl] = useState('')
 
-    const handleChange = e => {
-        setResource({[e.target.name]: e.target.value})
-    }
+    const handleNameChange = e => setName(e.target.value)
+    const handleDescriptionChange = e => setDescription(e.target.value)
+    const handleUrlChange = e => setUrl(e.target.value)
 
     const onSubmit = e => {
         e.preventDefault()
-        if (resource.name !== '' && resource.description !== '') {
+        if (name !== '' && description !== '') {
             fetch("http://localhost:3000/api/v1/goal_resources", {
                 method: "POST",
                 headers: {
@@ -19,16 +21,18 @@ export default function NewResource(props) {
                 },
                 body: JSON.stringify({
                     goal_id: props.clickedGoalid,
-                    name: resource.name,
-                    description: resource.description,
-                    url: resource.url
+                    name: name,
+                    description: description,
+                    url: url
                 })
             })
             .then(response => response.json())
             .then(resource => {
                 props.getNewResourceId(resource.data.id)
             })
-            setResource({name: '', description:'', url: ''})
+            setName('')
+            setDescription('')
+            setUrl('')
         } else {
             alert('Feilds are empty')
         }
@@ -42,15 +46,15 @@ export default function NewResource(props) {
                 <Form onSubmit={onSubmit}>
                     <Form.Group >
                         <Form.Label>Resource Name:</Form.Label>
-                        <Form.Control type="text" placeholder="Required" name={'name'} value={resource.name} onChange={handleChange} />
+                        <Form.Control type="text" placeholder="Required" name={'name'} value={name} onChange={handleNameChange} />
                     </Form.Group>
                     <Form.Group >
                         <Form.Label>Description:</Form.Label>
-                        <Form.Control as="textarea" rows="3" placeholder="Optional" name={'description'} value={resource.description} onChange={handleChange} />
+                        <Form.Control as="textarea" rows="3" placeholder="Optional" name={'description'} value={description} onChange={handleDescriptionChange} />
                     </Form.Group>
                     <Form.Group >
                         <Form.Label>URL:</Form.Label>
-                        <Form.Control type="text" placeholder="Required" name={'url'} value={resource.url} onChange={handleChange} />
+                        <Form.Control type="text" placeholder="Required" name={'url'} value={url} onChange={handleUrlChange} />
                     </Form.Group>
                     <Button variant="primary" type="submit" onClick={props.onHide}>
                         Submit
