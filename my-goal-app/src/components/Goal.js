@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 export default function Goal(props) {
     return (
-        <Card style={{ width: '254px', height:'250px', flex: 1}} onClick={() => props.handleGoalClick(props.id)}>
+        <Card style={{ width: '254px', height:'260px', flex: 1}} onClick={() => props.handleGoalClick(props.id)}>
             <Card.Img variant="top" as='div' style={{ backgroundColor: `rgb(${props.red},${props.green},${props.blue})`, width: '254px', height: '50px' }} />
             <Card.Body>
                 <Card.Title style={{color: 'black'}}>{props.name}</Card.Title>

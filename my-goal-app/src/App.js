@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route } from 'react-router'
+import { Route, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import MainBody from './components/MainBody'
 import SignUp from './components/SignUp'
@@ -8,134 +8,105 @@ import SignIn from './components/SignIn'
 import GoalShowPage from './components/GoalShowPage'
 import NewGoal from './components/NewGoal'
 
+function App(props) {
 
-export default class  App extends Component {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [users, setUsers] = useState([])
+  const [loggedinUser, setLoggedinUser] = useState({})
+  const [loggedinUserId, setLoggedinUserId] = useState('')
+  const [clickedGoalid, setClickedGoalid] = useState('')
+  const [completeTaskids, setCompleteTaskids] = useState([])
+  const [deleteModalShow, setDeleteModalShow] = useState(false)
+  const [taskModalShow, setTaskModalShow] = useState(false)
+  const [resourceModalShow, setResourceModalShow] = useState(false)
+  const [completedGoal, setCompletedGoal] = useState({})
+  const [confirmedCompletedGoal, setConfirmedCompletedGoal] = useState({})
+  const [newTaskId, setNewTaskId] = useState('')
+  const [newResourceId, setNewResourceId] = useState('')
 
-  state = {
-    username: '',
-    password: '',
-    users: [],
-    loggedinUser: {},
-    clickedGoalid: '',
-    completeTaskids: [],
-    deleteModalShow: false,
-    taskModalShow: false,
-    resourceModalShow: false,
-    completedGoal: {},
-    confirmedCompletedGoal: {},
-    newTaskId: '',
-    newResourceId: '',
-  }
-
-  componentDidMount = () => {
+  useEffect(() => {
     fetch("http://localhost:3000/api/v1/users")
     .then(response => response.json())
-    .then(users => this.setState({users}))
-  }
+    .then(users => setUsers(users))
+  }, [])
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.completeTaskids !== this.state.completeTaskids) {
-      fetch(`http://localhost:3000/api/v1/users/${this.state.loggedinUser.id}`)
+  // useEffect(() => {
+  //   fetch(`http://localhost:3000/api/v1/users/${loggedinUser.id}`)
+  //   .then(response => response.json())
+  //   .then(user => setLoggedinUser(user))
+  // }, [loggedinUser.id])
+
+  useEffect(() => {
+    if (completeTaskids.length > 0) {
+      fetch(`http://localhost:3000/api/v1/users/${loggedinUser.id}`)
       .then(response => response.json())
-      .then(user => {
-        this.setState({loggedinUser: user})
-      })
-      this.checkUserTasks()
+      .then(user => setLoggedinUser(user))
+      checkUserTasks()
     }
-  }
+  }, [completeTaskids])
 
-  handleChange = e => {
-    this.setState({
-        [e.target.name]: e.target.value
-    })
-  }
+  const handleUsernameChange = e => setUsername(e.target.value)
+  const handlePasswordChange = e => setPassword(e.target.value)
 
-  handleSubmit = e => {
-    e.preventDefault()
-    if (this.state.users.length > 0) {
-      this.loginUser() 
-    }
+  const handleSubmit = e => {
+      e.preventDefault()
+      if (users.length > 0) {
+          loginUser() 
+      }
   }
-
-  loginUser = () => {
-    let user = this.state.users.find(user => user.username === this.state.username)
-    if (user && user.password ===  this.state.password) {
-      this.setState({
-        loggedinUser: user
-      })
+  
+  const loginUser = () => {
+    let user = users.find(user => user.username === username)
+    if (user && user.password ===  password) {
+        setLoggedinUser(user)
+        props.history.push('/today')
     } else {
-      alert('Wrong Username or Password')
+        alert('Wrong Username or Password')
     }
   }
 
-  handleGoalClick = id => {
-    
-    this.setState({
-      clickedGoalid: id
-    })
-  }
+  const handleGoalClick = id => setClickedGoalid(id)
 
-  completeTask = id => {
-    if (this.state.completeTaskids.includes(id)) {
-      this.setState({
-        completeTaskids: this.state.completeTaskids.filter(taskId => taskId !== id)
-      })
+  const completeTask = id => {
+    if (completeTaskids.includes(id)) {
+      setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
     } else {
-      this.setState({
-        completeTaskids: [...this.state.completeTaskids, id]
-      })
+      setCompleteTaskids([...completeTaskids, id])
     }
   }
 
-
-
-  checkUserTasks = () => {
-    if (this.state.loggedinUser.goals !== undefined && this.state.completeTaskids.length !== 0) {
-        this.state.loggedinUser.goals.forEach(goal => {
+  const checkUserTasks = () => {
+    if (loggedinUser.goals !== undefined && completeTaskids.length !== 0) {
+        loggedinUser.goals.forEach(goal => {
           let target = []
           goal.tasks.forEach(task => {
             target.push(task.id)
           })
           if (target.length !== 0 ) {
-            if (target.every(v => this.state.completeTaskids.includes(v))) {
-              this.deleteModalOpen()
-              this.setState({
-                completeTaskids: [...this.state.completeTaskids].filter(ids => !target.includes(ids)),
-                completedGoal: goal
-              })
+            if (target.every(v => completeTaskids.includes(v))) {
+              deleteModalOpen()
+              setCompletedGoal(goal)
+              // setCompleteTaskids([...completeTaskids].filter(ids => !target.includes(ids)))
             }
           }
         });
     }
   }
 
-  deleteModalOpen = () => {
-    this.setState({deleteModalShow: true})
-  }
+  const deleteModalOpen = () => setDeleteModalShow(true)
+  const deleteModalClose = () => setDeleteModalShow(false)
 
-  deleteModalClose = () => {
-    this.setState({deleteModalShow: false})
-  }
+  const taskModalOpen = () => setTaskModalShow(true)
+  const taskModalClose = () => setTaskModalShow(false)
 
-  taskModalOpen = () => {
-    this.setState({taskModalShow: true})
-  }
+  const resourceModalOpen = () => setResourceModalShow(true)
+  const resourceModalClose = () => setResourceModalShow(false)
 
-  taskModalClose = () => {
-    this.setState({taskModalShow: false})
-  }
-
-  resourceModalOpen = () => {
-    this.setState({resourceModalShow: true})
-  }
-
-  resourceModalClose = () => {
-    this.setState({resourceModalShow: false})
-  }
-
-  completeGoal = (id) => {
-    let goal = this.state.loggedinUser.goals.find(goal => goal.id === id)
-    this.setState({confirmedCompletedGoal: goal})
+  const completeGoal = (id) => {
+    let goal = loggedinUser.goals.find(goal => goal.id === id)
+    setCompleteTaskids([...completeTaskids].filter(ids => goal.tasks.forEach(task => task.id)))
+    setConfirmedCompletedGoal(goal.tasks)
     fetch(`http://localhost:3000/api/v1/goals/${id}`, {
       method: "PUT",
       headers: {
@@ -145,41 +116,21 @@ export default class  App extends Component {
           is_complete: true
       })
     })
-    
-    this.deleteModalClose()
+    deleteModalClose()
   }
 
-  getNewTaskId = (id) => {
-    this.setState({newTaskId: id})
-  }
-  getNewResourceId = (id) => {
-    this.setState({newResourceId: id})
-  }
-
-  render() {
-    
-    let username = this.state.username
-    let password = this.state.password
-    let loggedinUser = this.state.loggedinUser
-    let clickedGoalid = this.state.clickedGoalid
-    let completeTaskids = this.state.completeTaskids
-    let deleteModalShow = this.state.deleteModalShow
-    let taskModalShow = this.state.taskModalShow
-    let resourceModalShow = this.state.resourceModalShow
-    let completedGoal = this.state.completedGoal
-    let confirmedCompletedGoal = this.state.confirmedCompletedGoal
-    let newTaskId = this.state.newTaskId
-    let newResourceId = this.state.newResourceId
-    
-    return (
-      <div className="App">
-        <NavBar loggedinUser={loggedinUser}/> 
-        <MainBody newTaskId={newTaskId} newResourceId={newResourceId} getNewResourceId={this.getNewResourceId} newResourceId={newResourceId} getNewTaskId={this.getNewTaskId} confirmedCompletedGoal={confirmedCompletedGoal} resourceModalClose={this.resourceModalClose} resourceModalOpen={this.resourceModalOpen} resourceModalShow={resourceModalShow} taskModalShow={taskModalShow} taskModalClose={this.taskModalClose} taskModalOpen={this.taskModalOpen} clickedGoalid={clickedGoalid} completeGoal={this.completeGoal} completedGoal={completedGoal} deleteModalClose={this.deleteModalClose} deleteModalShow={deleteModalShow} loggedinUser={loggedinUser} handleGoalClick={this.handleGoalClick} completeTaskids={completeTaskids} completeTask={this.completeTask}/>
-        <Route exact path="/signup" render={() => <SignUp />} />
-        <Route exact path="/" render={(routerProps) => <SignIn loggedinUser={loggedinUser} username={username} password={password} handleChange={this.handleChange} handlesubmit={this.handleSubmit} />} />
-        <Route exact path="/goal_showpage" render={() => <GoalShowPage newTaskId={newTaskId} newResourceId={newResourceId}  resourceModalOpen={this.resourceModalOpen} taskModalOpen={this.taskModalOpen} clickedGoalid={clickedGoalid} completeTaskids={completeTaskids} completeTask={this.completeTask} />} />
-        <Route exact path="/add_goal" render={() => <NewGoal loggedinUser={loggedinUser}/>} />
-      </div>
-    );
-  }
-}
+  const getNewTaskId = (id) => setNewTaskId(id)
+  const getNewResourceId = (id) => setNewResourceId(id)
+  
+  return (
+    <div className="App">
+      <NavBar loggedinUser={loggedinUser}/> 
+      <MainBody newTaskId={newTaskId} getNewResourceId={getNewResourceId} newResourceId={newResourceId} getNewTaskId={getNewTaskId} confirmedCompletedGoal={confirmedCompletedGoal} resourceModalClose={resourceModalClose} resourceModalOpen={resourceModalOpen} resourceModalShow={resourceModalShow} taskModalShow={taskModalShow} taskModalClose={taskModalClose} taskModalOpen={taskModalOpen} clickedGoalid={clickedGoalid} completeGoal={completeGoal} completedGoal={completedGoal} deleteModalClose={deleteModalClose} deleteModalShow={deleteModalShow} loggedinUser={loggedinUser} handleGoalClick={handleGoalClick} completeTaskids={completeTaskids} completeTask={completeTask}/>
+      <Route exact path="/signup" render={() => <SignUp />} />
+      <Route exact path="/" render={(routerProps) => <SignIn handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} username={username} password={password} {...routerProps}/>} />
+      <Route exact path="/goal_showpage" render={() => <GoalShowPage newTaskId={newTaskId} newResourceId={newResourceId}  resourceModalOpen={resourceModalOpen} taskModalOpen={taskModalOpen} clickedGoalid={clickedGoalid} completeTaskids={completeTaskids} completeTask={completeTask} />} />
+      <Route exact path="/add_goal" render={() => <NewGoal loggedinUser={loggedinUser}/>} />
+    </div>
+  );
+} 
+export default withRouter(App);

@@ -1,92 +1,67 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import {Modal, Button, Form} from 'react-bootstrap'
-// import Dropzone from 'react-dropzone'
 
+export default function NewResource(props) {
 
-export default class NewResource extends Component {
-    state = {
-        name: '',
-        description: '',
-        url: '',
+    const [resource, setResource] = useState({})
+    // state = {
+    //     name: '',
+    //     description: '',
+    //     url: '',
+    // }
+
+    const handleChange = e => {
+        setResource({[e.target.name]: e.target.value})
     }
 
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    onSubmit = e => {
+    const onSubmit = e => {
         e.preventDefault()
-        if (this.state.name !== '' && this.state.description !== '') {
+        if (resource.name !== '' && resource.description !== '') {
             fetch("http://localhost:3000/api/v1/goal_resources", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    goal_id: this.props.clickedGoalid,
-                    name: this.state.name,
-                    description: this.state.description,
-                    url: this.state.url
+                    goal_id: props.clickedGoalid,
+                    name: resource.name,
+                    description: resource.description,
+                    url: resource.url
                 })
             })
             .then(response => response.json())
             .then(resource => {
-                this.props.getNewResourceId(resource.data.id)
+                props.getNewResourceId(resource.data.id)
             })
-            this.setState({name: '', description:'', url: ''})
+            setResource({name: '', description:'', url: ''})
         } else {
             alert('Feilds are empty')
         }
     }
-
-    render() {
-        return (
-            <Modal show={this.props.show} onHide={this.props.onHide}>
-                <Modal.Header closeButton>
-                <Modal.Title>New Resource</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={this.onSubmit}>
-                        <Form.Group >
-                            <Form.Label>Resource Name:</Form.Label>
-                            <Form.Control type="text" placeholder="Required" name={'name'} value={this.state.name} onChange={this.handleChange} />
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>Description:</Form.Label>
-                            <Form.Control as="textarea" rows="3" placeholder="Optional" name={'description'} value={this.state.description} onChange={this.handleChange} />
-                        </Form.Group>
-                        <Form.Group >
-                            <Form.Label>URL:</Form.Label>
-                            <Form.Control type="text" placeholder="Required" name={'url'} value={this.state.url} onChange={this.handleChange} />
-                        </Form.Group>
-                        <Button variant="primary" type="submit" onClick={this.props.onHide}>
-                            Submit
-                        </Button>
-                    </Form>
-                </Modal.Body>
-            </Modal>
-        )
-    }
+    return (
+        <Modal show={props.show} onHide={props.onHide}>
+            <Modal.Header closeButton>
+            <Modal.Title>New Resource</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form onSubmit={onSubmit}>
+                    <Form.Group >
+                        <Form.Label>Resource Name:</Form.Label>
+                        <Form.Control type="text" placeholder="Required" name={'name'} value={resource.name} onChange={handleChange} />
+                    </Form.Group>
+                    <Form.Group >
+                        <Form.Label>Description:</Form.Label>
+                        <Form.Control as="textarea" rows="3" placeholder="Optional" name={'description'} value={resource.description} onChange={handleChange} />
+                    </Form.Group>
+                    <Form.Group >
+                        <Form.Label>URL:</Form.Label>
+                        <Form.Control type="text" placeholder="Required" name={'url'} value={resource.url} onChange={handleChange} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={props.onHide}>
+                        Submit
+                    </Button>
+                </Form>
+            </Modal.Body>
+        </Modal>
+    )
 }
-            // <div>
-
-            //     <form onSubmit={this.onSubmit}>
-            //         <label>
-            //             Resource Name:
-            //             <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-            //         </label>
-            //         <label>
-            //             Resource Description:
-            //             <textarea rows="10" cols="50" type="text" name="description" value={this.state.description} onChange={this.handleChange}/>
-            //         </label>
-            //         <label>
-            //             url:
-            //             <input type="text" name="url" value={this.state.url} onChange={this.handleChange}/>
-            //             <input type="file" id="file" name="file" accept="image/png, image/jpeg" value={this.state.file} onChange={this.handleChange}></input>
-            //         </label>
-
-            //         <input type="submit" value="Submit" />
-            //     </form> 
-            // </div>

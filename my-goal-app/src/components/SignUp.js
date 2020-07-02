@@ -1,59 +1,55 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom';
 
 
-export default class SignUp extends Component {
+function SignUp(props) {
 
-    state = {
-        username: '',
-        password: '',
-        confirmedPassword: ''
-    }
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmedPassword, setConfirmedPassword] = useState('')
 
-    handleChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+    const handleUsernameChange = e => setUsername(e.target.value)
+    const handlePasswordChange = e => setPassword(e.target.value)
+    const handleConfirmedPasswordChange = e => setConfirmedPassword(e.target.value)
 
-    onSubmit = e => {
+    const onSubmit = e => {
         e.preventDefault()
-        if (this.state.password === this.state.confirmedPassword && this.state.password !== '') {
+        if (password === confirmedPassword && password !== '') {
             fetch("http://localhost:3000/api/v1/users", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password,
+                    username: username,
+                    password: password,
                 })
             })
+            props.history.push('/')
         } else {
             alert('Passwords are empty or do not match!')
         }
     }
 
-    render() {
-        // console.log(this.state.username, this.state.password, this.state.confirmedPassword)
-        return (
-            <div>
-                <form onSubmit={this.onSubmit}>
-                        <label>
-                            Create Username:
-                            <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-                        </label>
-                        <label>
-                            Create Password:
-                            <input type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
-                        </label>
-                        <label>
-                            Confirm Password:
-                            <input type="password" name="confirmedPassword" value={this.state.confirmedPassword} onChange={this.handleChange}/>
-                        </label>
-                        <input type="submit" value="Submit" />
-                    </form> 
-            </div>
-        )
-    }
-
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                    <label>
+                        Create Username:
+                        <input type="text" name="username" value={username} onChange={handleUsernameChange} />
+                    </label>
+                    <label>
+                        Create Password:
+                        <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
+                    </label>
+                    <label>
+                        Confirm Password:
+                        <input type="password" name="confirmedPassword" value={confirmedPassword} onChange={handleConfirmedPasswordChange}/>
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form> 
+        </div>
+    )
 }
+
+export default withRouter(SignUp);

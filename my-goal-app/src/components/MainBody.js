@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Route } from 'react-router'
 import DeleteGoal from './DeleteGoal';
 import Today from './Today'
@@ -7,19 +7,17 @@ import AllGoals from './AllGoals'
 import NewTask from './NewTask'
 import NewResource from './NewResource'
 
-export default class MainBody extends Component {
+export default function MainBody(props) {
 
-    render() {
-        return (
-            <div className="main-body">
-                <DeleteGoal completeGoal={this.props.completeGoal} completedGoal={this.props.completedGoal} show={this.props.deleteModalShow} onHide={this.props.deleteModalClose}  />
-                <NewTask  getNewTaskId={this.props.getNewTaskId} show={this.props.taskModalShow} onHide={this.props.taskModalClose} clickedGoalid={this.props.clickedGoalid} />
-                <NewResource getNewResourceId={this.props.getNewResourceId} show={this.props.resourceModalShow} onHide={this.props.resourceModalClose}  clickedGoalid={this.props.clickedGoalid} />
-                <Route exact path="/today" render={() => <Today newResourceId={this.props.newResourceId} newTaskId={this.props.newTaskId} taskModalShow={this.props.taskModalShow} confirmedCompletedGoal={this.props.confirmedCompletedGoal} resourceModalOpen={this.props.resourceModalOpen} taskModalOpen={this.props.taskModalOpen} loggedinUser={this.props.loggedinUser} completeTask={this.props.completeTask} completeTaskids={this.props.completeTaskids} handleGoalClick={this.props.handleGoalClick}/>} />
-                <Route exact path="/calendar" render={() => <BigCalendar loggedinUser={this.props.loggedinUser} />} />
-                <Route exact path="/goals" render={() => <AllGoals resourceModalOpen={this.props.resourceModalOpen} taskModalOpen={this.props.taskModalOpen} loggedinUser={this.props.loggedinUser} handleGoalClick={this.props.handleGoalClick}/>} />
-            </div>
-        )        
-    }
 
+    return (
+        <div className="main-body">
+            <DeleteGoal completeGoal={props.completeGoal} completedGoal={props.completedGoal} show={props.deleteModalShow} onHide={props.deleteModalClose}  />
+            <NewTask  getNewTaskId={props.getNewTaskId} show={props.taskModalShow} onHide={props.taskModalClose} clickedGoalid={props.clickedGoalid} />
+            <NewResource getNewResourceId={props.getNewResourceId} show={props.resourceModalShow} onHide={props.resourceModalClose}  clickedGoalid={props.clickedGoalid} />
+            <Route exact path="/today" render={() => <Today newResourceId={props.newResourceId} newTaskId={props.newTaskId} taskModalShow={props.taskModalShow} confirmedCompletedGoal={props.confirmedCompletedGoal} resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen} loggedinUser={props.loggedinUser} completeTask={props.completeTask} completeTaskids={props.completeTaskids} handleGoalClick={props.handleGoalClick}/>} />
+            <Route exact path="/calendar" render={() => <BigCalendar loggedinUser={props.loggedinUser} />} />
+            <Route exact path="/goals" render={() => <AllGoals resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />
+        </div>
+    )        
 }

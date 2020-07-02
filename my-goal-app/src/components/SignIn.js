@@ -1,61 +1,84 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Form, Button, Jumbotron, Container, Row, Col} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 
 
-export default class SignIn extends Component {
+export default function SignIn(props) {
 
-    render() {
-        return (
-            <Container >
-                <Row>
-                    <Col lg={12} >   
-                        <Jumbotron style={{backgroundColor: '#333', color: 'white', display: 'inline-block', width: '100%'}}>
-                                <img
-                                    alt=""
-                                    src="wilson.png"
-                                    width="200"
-                                    height="200"
-                                    className="d-inline-block align-top"
-                                    style={{verticalAlign: 'middle', textAlign: 'center', float: 'left', marginRight: '70px'}}
-                                />
-                            <h1>Welcome to <span style={{color: 'rgb(214, 17, 18)'}}>Wilson</span></h1>
-                            <h3>Get Off Your Island!</h3>
-                            <p>
-                                A simple app to keep track of your goals, tasks, and resources... all in one place.
-                            </p>
-                            <p>
-                            </p>
-                        </Jumbotron>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={{ span: 6, offset: 3}} style={{backgroundColor: '#333', color: 'white', padding: '15px', borderRadius: '5px', }}>
-                        <Form onSubmit={this.props.handlesubmit} >
-                            <Form.Group controlId="username">
-                                <Form.Label>Username:</Form.Label>
-                                <Form.Control type="username" placeholder="Enter username" name={'username'} value={this.props.username} onChange={this.props.handleChange} />
-                            </Form.Group>
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" name={'password'} value={this.props.password} onChange={this.props.handleChange} />
-                            </Form.Group>
-                            <Form.Text className="text-muted">
-                                Not registered? <Link to='/signup' href="#">Create an account</Link>
-                            </Form.Text>
-                            
-                                <Button variant="secondary" type="submit">Submit</Button>
-                            
-                                
-                            
-                            
-                        </Form>
-                    </Col>
-                </Row>
+    // const handleUsernameChange = e => setUsername(e.target.value)
+    // const handlePasswordChange = e => setPassword(e.target.value)
 
-            </Container>
-        )
-    }
+    // const handleSubmit = e => {
+    //     e.preventDefault()
+    //     if (users.length > 0) {
+    //         loginUser() 
+    //     }
+    // }
+    
+    // const loginUser = () => {
+    //     let user = users.find(user => user.username === username)
+    //     if (user && user.password ===  password) {
+    //         setLoggedinUser(user)
+    //         props.history.push('/today')
+    //     } else {
+    //         alert('Wrong Username or Password')
+    //     }
+    // }
+
+
+
+    // const home = () => {
+    //     if (props.loggedinUser.id !== undefined) {
+    //         props.history.push('/today')
+    //     }
+    // }
+    
+    // home()
+    
+    return (
+        <Container >
+            <Row>
+                <Col lg={12} >   
+                    <Jumbotron style={{backgroundColor: '#333', color: 'white', display: 'inline-block', width: '100%'}}>
+                            <img
+                                alt=""
+                                src="wilson.png"
+                                width="200"
+                                height="200"
+                                className="d-inline-block align-top"
+                                style={{verticalAlign: 'middle', textAlign: 'center', float: 'left', marginRight: '70px'}}
+                            />
+                        <h1>Welcome to <span style={{color: 'rgb(214, 17, 18)'}}>Wilson</span></h1>
+                        <h3>Get Off Your Island!</h3>
+                        <p>
+                            A simple app to keep track of your goals, tasks, and resources... all in one place.
+                        </p>
+                        <p>
+                        </p>
+                    </Jumbotron>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={{ span: 6, offset: 3}} style={{backgroundColor: '#333', color: 'white', padding: '15px', borderRadius: '5px', }}>
+                    <Form onSubmit={props.handleSubmit} >
+                        <Form.Group controlId="username">
+                            <Form.Label>Username:</Form.Label>
+                            <Form.Control type="username" placeholder="Enter username" name={'username'} value={props.username} onChange={props.handleUsernameChange} />
+                        </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" name={'password'} value={props.password} onChange={props.handlePasswordChange} />
+                        </Form.Group>
+                        <Form.Text className="text-muted">
+                            Not registered? <Link to='/signup' href="#">Create an account</Link>
+                        </Form.Text>
+                        <Button variant="secondary" type="submit">Submit</Button>
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
+    )
+    
 }
 

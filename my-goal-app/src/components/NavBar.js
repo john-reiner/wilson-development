@@ -28,7 +28,7 @@ export default function NavBar(props) {
                     <Nav.Link>Goals</Nav.Link>
                 </LinkContainer>
             </Nav>
-                <Button variant="outline-secondary">{props.loggedinUser.username ? props.loggedinUser.username : 'Please Login'}</Button>
+                <Button variant="outline-secondary">{props.loggedinUser ? props.loggedinUser.username : 'Please Login'}</Button>
         </Navbar>
     )
 }
