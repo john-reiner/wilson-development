@@ -7,7 +7,7 @@ export default function TodaysResources(props) {
 
     const renderResources = () => {
         return props.resources.map(resource => {
-            return <CarouselResource name={resource.name} url={resource.url}/>
+            return <CarouselResource key={resource.id} name={resource.name} url={resource.url}/>
         })
     }
 

@@ -30,7 +30,6 @@ function NewGoal(props) {
                     blue: Math.floor(Math.random() * 255)
                 })
             })
-            .then(console.log('complete'))
             props.history.push('/goals')
         } else {
             alert('Feilds are empty')

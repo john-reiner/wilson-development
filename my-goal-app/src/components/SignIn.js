@@ -5,36 +5,6 @@ import { Link } from 'react-router-dom'
 
 
 export default function SignIn(props) {
-
-    // const handleUsernameChange = e => setUsername(e.target.value)
-    // const handlePasswordChange = e => setPassword(e.target.value)
-
-    // const handleSubmit = e => {
-    //     e.preventDefault()
-    //     if (users.length > 0) {
-    //         loginUser() 
-    //     }
-    // }
-    
-    // const loginUser = () => {
-    //     let user = users.find(user => user.username === username)
-    //     if (user && user.password ===  password) {
-    //         setLoggedinUser(user)
-    //         props.history.push('/today')
-    //     } else {
-    //         alert('Wrong Username or Password')
-    //     }
-    // }
-
-
-
-    // const home = () => {
-    //     if (props.loggedinUser.id !== undefined) {
-    //         props.history.push('/today')
-    //     }
-    // }
-    
-    // home()
     
     return (
         <Container >

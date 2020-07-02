@@ -28,30 +28,11 @@ export default function GoalShowPage(props) {
         .then(goal => setGoal(goal))
     }, [props.newTaskId])
 
-    // componentDidUpdate = (prevProps, prevState) => {
-    //     if (prevProps.newTaskId !== props.newTaskId) {
-    //         fetch(`http://localhost:3000/api/v1/goals/${props.clickedGoalid}`)
-    //         .then(response => response.json())
-    //         .then(goal => {
-    //             setState({goal})
-    //         })       
-    //     }
-    // }
     useEffect(() => {
         fetch(`http://localhost:3000/api/v1/goals/${props.clickedGoalid}`)
         .then(response => response.json())
         .then(goal => {setGoal(goal)})
     }, [])
-
-    // componentDidMount = () => {
-    //     fetch(`http://localhost:3000/api/v1/goals/${props.clickedGoalid}`)
-    //     .then(response => response.json())
-    //     .then(goal => {
-    //         setState({goal})
-    //     })
-    // }
-
-    
 
     return (
         <Container fluid style={{backgroundColor: '#333', padding: '50px'}}>

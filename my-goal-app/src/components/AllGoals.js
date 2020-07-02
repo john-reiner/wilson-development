@@ -12,16 +12,13 @@ export default function AllGoals(props) {
         .then(response => response.json())
         .then(user => setGoals(user.goals))
     }, [])
-    console.log(goals)
 
     const renderGoals = () => {
-        // if (goals.length > 0) {
-            return goals.map(goal => {
-                if (!goal.is_complete) {
-                    return <Goal resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen} red={goal.red} green={goal.green} blue={goal.blue} description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={props.handleGoalClick} name={goal.goal_name} key={goal.id} />
-                }
-            })
-        // }
+        return goals.map(goal => {
+            if (!goal.is_complete) {
+                return <Goal resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen} red={goal.red} green={goal.green} blue={goal.blue} description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={props.handleGoalClick} name={goal.goal_name} key={goal.id} />
+            }
+        })
     }
 
     const renderCompletedGoals = () => {

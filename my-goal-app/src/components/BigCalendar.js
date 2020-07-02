@@ -41,9 +41,7 @@ export default function BigCalendar(props) {
                         events={events}
                         style={{ height: "100vh", backgroundColor: 'white' }}
                         eventPropGetter={event => ({
-                            style: {
-                                backgroundColor: event.backgroundColor
-                            }
+                            style: {backgroundColor: event.backgroundColor}
                         })}
                     />                        
                 </Col>

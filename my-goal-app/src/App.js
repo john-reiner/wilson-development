@@ -14,7 +14,6 @@ function App(props) {
   const [password, setPassword] = useState('')
   const [users, setUsers] = useState([])
   const [loggedinUser, setLoggedinUser] = useState({})
-  const [loggedinUserId, setLoggedinUserId] = useState('')
   const [clickedGoalid, setClickedGoalid] = useState('')
   const [completeTaskids, setCompleteTaskids] = useState([])
   const [deleteModalShow, setDeleteModalShow] = useState(false)
@@ -30,12 +29,6 @@ function App(props) {
     .then(response => response.json())
     .then(users => setUsers(users))
   }, [])
-
-  // useEffect(() => {
-  //   fetch(`http://localhost:3000/api/v1/users/${loggedinUser.id}`)
-  //   .then(response => response.json())
-  //   .then(user => setLoggedinUser(user))
-  // }, [loggedinUser.id])
 
   useEffect(() => {
     if (completeTaskids.length > 0) {
@@ -87,7 +80,6 @@ function App(props) {
             if (target.every(v => completeTaskids.includes(v))) {
               deleteModalOpen()
               setCompletedGoal(goal)
-              // setCompleteTaskids([...completeTaskids].filter(ids => !target.includes(ids)))
             }
           }
         });

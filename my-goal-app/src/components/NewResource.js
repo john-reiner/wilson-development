@@ -4,11 +4,6 @@ import {Modal, Button, Form} from 'react-bootstrap'
 export default function NewResource(props) {
 
     const [resource, setResource] = useState({})
-    // state = {
-    //     name: '',
-    //     description: '',
-    //     url: '',
-    // }
 
     const handleChange = e => {
         setResource({[e.target.name]: e.target.value})

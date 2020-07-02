@@ -5,10 +5,6 @@ export default function NewTask(props) {
     
     const [name, setName] = useState('')
 
-    // state = {
-    //     name: ''
-    // }
-
     const handleChange = e => setName(e.target.value)
 
     const onSubmit = e => {
@@ -26,7 +22,6 @@ export default function NewTask(props) {
             })
             .then(response => response.json())
             .then(task => {
-                // console.log(task.data.id)
                 props.getNewTaskId(task.data.id)
             })
             setName(name)
