@@ -1,61 +1,56 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import {Modal, Button, Form} from 'react-bootstrap'
 
-export default class NewTask extends Component {
+export default function NewTask(props) {
     
-    state = {
-        name: ''
-    }
+    const [name, setName] = useState('')
 
-    handleChange = e => {
-        this.setState({
-            name: e.target.value
-        })
-    }
+    // state = {
+    //     name: ''
+    // }
 
-    onSubmit = e => {
+    const handleChange = e => setName(e.target.value)
+
+    const onSubmit = e => {
         e.preventDefault()
-        if (this.state.name !== '') {
+        if (name !== '') {
             fetch("http://localhost:3000/api/v1/tasks", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    goal_id: this.props.clickedGoalid,
-                    name: this.state.name,
+                    goal_id: props.clickedGoalid,
+                    name: name,
                 })
             })
             .then(response => response.json())
             .then(task => {
                 // console.log(task.data.id)
-                this.props.getNewTaskId(task.data.id)
+                props.getNewTaskId(task.data.id)
             })
-            this.setState({name: ''})
+            setName(name)
         } else {
             alert('Feilds are empty')
         }
     }
 
-    render() {
-        
-        return (
-            <Modal show={this.props.show} onHide={this.props.onHide}>
-                <Modal.Header closeButton>
-                <Modal.Title>New Task</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={this.onSubmit}>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Task:</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Task" name={'task'} value={this.state.name} onChange={this.handleChange} />
-                        </Form.Group>
-                        <Button variant="primary" type="submit" onClick={this.props.onHide}>
-                            Submit
-                        </Button>
-                    </Form>
-                </Modal.Body>               
-            </Modal>
-        )
-    }
+    return (
+        <Modal show={props.show} onHide={props.onHide}>
+            <Modal.Header closeButton>
+            <Modal.Title>New Task</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form onSubmit={onSubmit}>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Task:</Form.Label>
+                        <Form.Control type="text" placeholder="Enter Task" name={'task'} value={name} onChange={handleChange} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={props.onHide}>
+                        Submit
+                    </Button>
+                </Form>
+            </Modal.Body>               
+        </Modal>
+    )
 }
