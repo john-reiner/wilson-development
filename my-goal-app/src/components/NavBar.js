@@ -25,7 +25,7 @@ export default function NavBar(props) {
                     <Nav.Link>Calendar</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/goals">
-                    <Nav.Link>Goals</Nav.Link>
+                    <Nav.Link>Completed</Nav.Link>
                 </LinkContainer>
             </Nav>
                 <Button variant="outline-secondary">{props.loggedinUser ? props.loggedinUser.username : 'Please Login'}</Button>

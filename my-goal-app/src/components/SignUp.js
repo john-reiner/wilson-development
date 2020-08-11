@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {Container, Row, Col, Form, Button} from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 
 
@@ -32,23 +33,34 @@ function SignUp(props) {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                    <label>
-                        Create Username:
-                        <input type="text" name="username" value={username} onChange={handleUsernameChange} />
-                    </label>
-                    <label>
-                        Create Password:
-                        <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
-                    </label>
-                    <label>
-                        Confirm Password:
-                        <input type="password" name="confirmedPassword" value={confirmedPassword} onChange={handleConfirmedPasswordChange}/>
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form> 
-        </div>
+        <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
+            <Row>
+                <Col>
+                    <Form onSubmit={onSubmit}>
+                    
+                        <Form.Group >
+                            <Form.Label>Create Username:</Form.Label>
+                            <Form.Control type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
+                        </Form.Group>
+
+                        <Form.Group >
+                            <Form.Label>Password:</Form.Label>
+                            <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
+                        </Form.Group>
+
+                        <Form.Group >
+                            <Form.Label>Re-enter password:</Form.Label>
+                            <Form.Control type="password" placeholder="Re-enter password" value={confirmedPassword} onChange={handleConfirmedPasswordChange} />
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

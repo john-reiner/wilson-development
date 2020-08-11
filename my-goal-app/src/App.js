@@ -28,7 +28,9 @@ function App(props) {
     fetch("http://localhost:3000/api/v1/users")
     .then(response => response.json())
     .then(users => setUsers(users))
+
   }, [])
+
 
   useEffect(() => {
     if (completeTaskids.length > 0) {
@@ -63,8 +65,27 @@ function App(props) {
 
   const completeTask = id => {
     if (completeTaskids.includes(id)) {
+      fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          is_complete: false
+        })
+      })
       setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
     } else {
+      console.log('clicked task', id)
+      fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          is_complete: true
+        })
+      })
       setCompleteTaskids([...completeTaskids, id])
     }
   }
@@ -115,7 +136,7 @@ function App(props) {
   const getNewResourceId = (id) => setNewResourceId(id)
   
   return (
-    <div className="App">
+    <div>
       <NavBar loggedinUser={loggedinUser}/> 
       <MainBody newTaskId={newTaskId} getNewResourceId={getNewResourceId} newResourceId={newResourceId} getNewTaskId={getNewTaskId} confirmedCompletedGoal={confirmedCompletedGoal} resourceModalClose={resourceModalClose} resourceModalOpen={resourceModalOpen} resourceModalShow={resourceModalShow} taskModalShow={taskModalShow} taskModalClose={taskModalClose} taskModalOpen={taskModalOpen} clickedGoalid={clickedGoalid} completeGoal={completeGoal} completedGoal={completedGoal} deleteModalClose={deleteModalClose} deleteModalShow={deleteModalShow} loggedinUser={loggedinUser} handleGoalClick={handleGoalClick} completeTaskids={completeTaskids} completeTask={completeTask}/>
       <Route exact path="/signup" render={() => <SignUp />} />
