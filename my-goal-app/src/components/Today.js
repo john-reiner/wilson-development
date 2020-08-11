@@ -15,14 +15,14 @@ export default function Today(props) {
         .then(user => {
             let tasks = []
             user.goals.forEach(goal => {
-                if (goal.tasks.length > 0 && !goal.is_complete) {
-                    let rgb = `rgb(${goal.red},${goal.green},${goal.blue})`
+                if (!goal.is_complete) {
+                    let rgb = goal.rgb
                     goal.tasks.forEach(task => {
                         task.rgb = rgb
                         tasks.push(task)
                     })
                 }
-            });
+            })
             setTasks(tasks)
         })
     }
@@ -71,14 +71,14 @@ export default function Today(props) {
     let renderGoals = () => {
         if (goals.length > 0) {
             return goals.map(goal => {
-                return <Goal resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen}  red={goal.red} green={goal.green} blue={goal.blue} id={goal.id} handleGoalClick={props.handleGoalClick} description={goal.goal_description} date={goal.date} name={goal.goal_name} key={goal.id} />
+                return <Goal resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} description={goal.goal_description} date={goal.date} name={goal.goal_name} key={goal.id} />
             })
         }
     }
 
     const renderTasks = () => {
         return tasks.map(task => {
-            return <Task rgb={task.rgb} id={task.id} completeTask={props.completeTask} completeTaskids={props.completeTaskids} name={task.name} description={task.description} key={task.id}/>
+            return <Task complete={task.is_complete} rgb={task.rgb} id={task.id} completeTask={props.completeTask} completeTaskids={props.completeTaskids} name={task.name} description={task.description} key={task.id}/>
         })
     }
 

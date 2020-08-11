@@ -25,12 +25,10 @@ function NewGoal(props) {
                     goal_name: name,
                     goal_description: description,
                     date: date,
-                    red: Math.floor(Math.random() * 255),
-                    green: Math.floor(Math.random() * 255),
-                    blue: Math.floor(Math.random() * 255)
+                    rgb: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`
                 })
             })
-            props.history.push('/goals')
+            props.history.push('/today')
         } else {
             alert('Feilds are empty')
         }

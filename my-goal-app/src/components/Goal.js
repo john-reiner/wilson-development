@@ -14,7 +14,7 @@ export default function Goal(props) {
     return (
         <div style={{ padding: '10px'}}>
             <Card style={{color: 'black', width: '254px', height:'260px'}} onClick={() => props.handleGoalClick(props.id)}>
-                <Card.Img variant="top" as='div' style={{ backgroundColor: `rgb(${props.red},${props.green},${props.blue})`, width: '254px', height: '50px' }} />
+                <Card.Img variant="top" as='div' style={{ backgroundColor: props.rgb, width: '254px', height: '50px' }} />
                 <Card.Body>
                     <Card.Title>{props.name}</Card.Title>
                     <Card.Text>

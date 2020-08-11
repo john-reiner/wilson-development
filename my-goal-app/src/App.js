@@ -12,8 +12,8 @@ function App(props) {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [users, setUsers] = useState([])
   const [loggedinUser, setLoggedinUser] = useState({})
+  const [loggedinUserId, setLoggedinUserId] = useState('')
   const [clickedGoalid, setClickedGoalid] = useState('')
   const [completeTaskids, setCompleteTaskids] = useState([])
   const [deleteModalShow, setDeleteModalShow] = useState(false)
@@ -24,42 +24,61 @@ function App(props) {
   const [newTaskId, setNewTaskId] = useState('')
   const [newResourceId, setNewResourceId] = useState('')
 
-  useEffect(() => {
+  const handleSubmit = e => {
+    e.preventDefault()
+    loginUser() 
+  }
+
+  const handleUsernameChange = e => setUsername(e.target.value)
+  const handlePasswordChange = e => setPassword(e.target.value)
+
+  const loginUser = () => {
     fetch("http://localhost:3000/api/v1/users")
     .then(response => response.json())
-    .then(users => setUsers(users))
+    .then(users => {
+      let user = users.find(user => user.username === username)
+      if (user && user.password ===  password) {
+          setLoggedinUser(user)
+          setLoggedinUserId(user.id)
+          props.history.push('/today')
+      } else {
+          alert('Wrong Username or Password')
+      }
+    })
+  }
 
-  }, [])
-
+  useEffect(() => {
+      if (loggedinUser.id) {
+        fetch(`http://localhost:3000/api/v1/users/${loggedinUser.id}`)
+        .then(response => response.json())
+        .then(user => {
+          let taskIds = []
+          user.goals.forEach(goal => {
+            if (!goal.is_complete) {
+              goal.tasks.forEach(task => {
+                if (task.is_complete) {
+                  taskIds.push(task.id)
+                }
+              })
+            }
+          })
+          setCompleteTaskids(taskIds)
+        })        
+      }
+  }, [loggedinUserId])
 
   useEffect(() => {
     if (completeTaskids.length > 0) {
       fetch(`http://localhost:3000/api/v1/users/${loggedinUser.id}`)
       .then(response => response.json())
-      .then(user => setLoggedinUser(user))
-      checkUserTasks()
+      .then(user => {
+        setLoggedinUser(user)
+        checkUserTasks()
+      })
     }
   }, [completeTaskids])
 
-  const handleUsernameChange = e => setUsername(e.target.value)
-  const handlePasswordChange = e => setPassword(e.target.value)
-
-  const handleSubmit = e => {
-      e.preventDefault()
-      if (users.length > 0) {
-          loginUser() 
-      }
-  }
-  
-  const loginUser = () => {
-    let user = users.find(user => user.username === username)
-    if (user && user.password ===  password) {
-        setLoggedinUser(user)
-        props.history.push('/today')
-    } else {
-        alert('Wrong Username or Password')
-    }
-  }
+  // makes a fetch to logged in user goals and compaires it with 
 
   const handleGoalClick = id => setClickedGoalid(id)
 
@@ -75,8 +94,9 @@ function App(props) {
         })
       })
       setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
+      console.log(completeTaskids, loggedinUser.goals)
     } else {
-      console.log('clicked task', id)
+      setCompleteTaskids([...completeTaskids, id])
       fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
         method: "PATCH",
         headers: {
@@ -86,7 +106,6 @@ function App(props) {
           is_complete: true
         })
       })
-      setCompleteTaskids([...completeTaskids, id])
     }
   }
 
@@ -134,7 +153,6 @@ function App(props) {
 
   const getNewTaskId = (id) => setNewTaskId(id)
   const getNewResourceId = (id) => setNewResourceId(id)
-  
   return (
     <div>
       <NavBar loggedinUser={loggedinUser}/> 
