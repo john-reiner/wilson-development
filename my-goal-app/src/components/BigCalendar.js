@@ -16,15 +16,17 @@ export default function BigCalendar(props) {
         .then(user => {
                 let userEvents = []
                 user.goals.forEach(goal => {
-                    let newEvent = {
-                        start: moment(goal.date).toDate(),
-                        end: moment(goal.date)
-                            .add(0, 'days')
-                            .toDate(),
-                        title: goal.goal_name,
-                        backgroundColor:`rgb(${goal.red},${goal.green},${goal.blue})`
+                    if (!goal.is_complete) {
+                        let newEvent = {
+                            start: moment(goal.date).toDate(),
+                            end: moment(goal.date)
+                                .add(0, 'days')
+                                .toDate(),
+                            title: goal.goal_name,
+                            backgroundColor: goal.rgb
+                        }
+                        userEvents.push(newEvent)                        
                     }
-                    userEvents.push(newEvent)
                 });
             setEvents(userEvents)
         })

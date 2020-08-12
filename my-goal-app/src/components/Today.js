@@ -53,6 +53,9 @@ export default function Today(props) {
         updateGoals()
     }, [])
 
+    useEffect(() => {
+        updateGoals()
+    }, [props.completeTaskids])
 
     useEffect(() => {
         updateTasks()
@@ -71,7 +74,7 @@ export default function Today(props) {
     let renderGoals = () => {
         if (goals.length > 0) {
             return goals.map(goal => {
-                return <Goal resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} description={goal.goal_description} date={goal.date} name={goal.goal_name} key={goal.id} />
+                return <Goal completeTaskids={props.completeTaskids} tasks={goal.tasks} resourceModalOpen={props.resourceModalOpen} taskModalOpen={props.taskModalOpen}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} description={goal.goal_description} date={goal.date} name={goal.goal_name} key={goal.id} />
             })
         }
     }

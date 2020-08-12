@@ -9,7 +9,7 @@ export default function GoalShowPage(props) {
 
     const renderTasks = () => {
         if (goal !== '') {
-            let rgb = `rgb(${goal.red},${goal.green},${goal.blue})`
+            let rgb = goal.rgb
             return goal.tasks.map(task => {
                 return <Task rgb={rgb} id={task.id} completeTask={props.completeTask} completeTaskids={props.completeTaskids} name={task.name} description={task.description} key={task.id}/>
             })
@@ -38,7 +38,7 @@ export default function GoalShowPage(props) {
         <Container fluid style={{backgroundColor: '#333', padding: '50px'}}>
             <Row>
                 <Col>
-                    <Jumbotron style={{ border: `solid rgb(${goal.red},${goal.green},${goal.blue}) 4px`}}>
+                    <Jumbotron style={{ border: `solid ${goal.rgb} 4px`}}>
                         <h1>{goal.goal_name}</h1>
                         <p>{goal.goal_description}</p>
                         <p>

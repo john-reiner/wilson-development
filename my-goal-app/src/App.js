@@ -78,8 +78,6 @@ function App(props) {
     }
   }, [completeTaskids])
 
-  // makes a fetch to logged in user goals and compaires it with 
-
   const handleGoalClick = id => setClickedGoalid(id)
 
   const completeTask = id => {
@@ -94,7 +92,6 @@ function App(props) {
         })
       })
       setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
-      console.log(completeTaskids, loggedinUser.goals)
     } else {
       setCompleteTaskids([...completeTaskids, id])
       fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
@@ -145,7 +142,8 @@ function App(props) {
           'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          is_complete: true
+          is_complete: true,
+          date_completed: new Date()
       })
     })
     deleteModalClose()

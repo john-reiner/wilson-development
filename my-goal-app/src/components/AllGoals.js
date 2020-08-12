@@ -17,14 +17,14 @@ export default function AllGoals(props) {
         if (goals.length > 0) {
             return goals.map(goal => {
                 if (goal.is_complete) {
-                    return <Goal red={goal.red} green={goal.green} blue={goal.blue} description={goal.goal_description} date={goal.date} complete={goal.is_complete} id={goal.id} handleGoalClick={props.handleGoalClick} name={goal.goal_name} key={goal.id} />
+                    return <Goal tasks={goal.tasks} rgb={goal.rgb} description={goal.goal_description} dateComplete={goal.date_completed} complete={goal.is_complete} id={goal.id} handleGoalClick={props.handleGoalClick} name={goal.goal_name} key={goal.id} />
                 }
             })
         }
     }
     
     return (
-        <Container fluid style={{backgroundColor: '#333', color: 'white', padding: '3%', minHeight: "80vh", width: "100%"}}>
+        <Container fluid style={{backgroundColor: '#333', color: 'white', padding: '1%', minHeight: "80vh", width: "100%"}}>
             
             <Row>
                 <Col>
