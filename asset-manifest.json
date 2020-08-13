@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/wilson-development/static/css/main.33d34858.chunk.css",
+    "main.js": "/wilson-development/static/js/main.50acab28.chunk.js",
+    "main.js.map": "/wilson-development/static/js/main.50acab28.chunk.js.map",
+    "runtime-main.js": "/wilson-development/static/js/runtime-main.be938fd9.js",
+    "runtime-main.js.map": "/wilson-development/static/js/runtime-main.be938fd9.js.map",
+    "static/css/2.25b83785.chunk.css": "/wilson-development/static/css/2.25b83785.chunk.css",
+    "static/js/2.20c1dea5.chunk.js": "/wilson-development/static/js/2.20c1dea5.chunk.js",
+    "static/js/2.20c1dea5.chunk.js.map": "/wilson-development/static/js/2.20c1dea5.chunk.js.map",
+    "index.html": "/wilson-development/index.html",
+    "precache-manifest.6114039d82428c089e0ddfed4a7fb644.js": "/wilson-development/precache-manifest.6114039d82428c089e0ddfed4a7fb644.js",
+    "service-worker.js": "/wilson-development/service-worker.js",
+    "static/css/2.25b83785.chunk.css.map": "/wilson-development/static/css/2.25b83785.chunk.css.map",
+    "static/css/main.33d34858.chunk.css.map": "/wilson-development/static/css/main.33d34858.chunk.css.map",
+    "static/js/2.20c1dea5.chunk.js.LICENSE.txt": "/wilson-development/static/js/2.20c1dea5.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.be938fd9.js",
+    "static/css/2.25b83785.chunk.css",
+    "static/js/2.20c1dea5.chunk.js",
+    "static/css/main.33d34858.chunk.css",
+    "static/js/main.50acab28.chunk.js"
+  ]
+}
