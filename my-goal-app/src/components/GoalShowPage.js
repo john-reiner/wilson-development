@@ -23,13 +23,13 @@ export default function GoalShowPage(props) {
         }
     }
     useEffect(() => {
-        fetch(`http://localhost:3000/api/v1/goals/${props.clickedGoalid}`)
+        fetch(`https://wilson-backend.herokuapp.com/api/v1/goals/${props.clickedGoalid}`)
         .then(response => response.json())
         .then(goal => setGoal(goal))
     }, [props.newTaskId])
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/v1/goals/${props.clickedGoalid}`)
+        fetch(`https://wilson-backend.herokuapp.com/api/v1/goals/${props.clickedGoalid}`)
         .then(response => response.json())
         .then(goal => {setGoal(goal)})
     }, [])

@@ -14,7 +14,7 @@ export default function NewResource(props) {
     const onSubmit = e => {
         e.preventDefault()
         if (name !== '' && description !== '') {
-            fetch("http://localhost:3000/api/v1/goal_resources", {
+            fetch("https://wilson-backend.herokuapp.com/api/v1/goal_resources", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

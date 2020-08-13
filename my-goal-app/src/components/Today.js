@@ -10,7 +10,7 @@ export default function Today(props) {
     const [goals, setGoals] = useState([])
 
     const updateTasks = () => {
-        fetch(`http://localhost:3000/api/v1/users/${props.loggedinUser.id}`)
+        fetch(`https://wilson-backend.herokuapp.com/api/v1/users/${props.loggedinUser.id}`)
         .then(response => response.json())
         .then(user => {
             let tasks = []
@@ -27,7 +27,7 @@ export default function Today(props) {
         })
     }
     const updateGoals = () => {
-        fetch(`http://localhost:3000/api/v1/users/${props.loggedinUser.id}`)
+        fetch(`https://wilson-backend.herokuapp.com/api/v1/users/${props.loggedinUser.id}`)
         .then(response => response.json())
         .then(user => setGoals(user.goals.filter(goal => !goal.is_complete)))        
     }

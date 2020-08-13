@@ -15,7 +15,7 @@ function NewGoal(props) {
     const onSubmit = e => {
         e.preventDefault()
         if (name !== '' && description !== '' && date !== '') {
-            fetch("http://localhost:3000/api/v1/goals", {
+            fetch("https://wilson-backend.herokuapp.com/api/v1/goals", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

@@ -20,6 +20,8 @@ export default function Goal(props) {
         }
     }
 
+    console.log(props)
+
     let calcDaysFromToday = (date) => {
         let today = new Date()
         let dayToCalc = new Date(date)
@@ -33,8 +35,6 @@ export default function Goal(props) {
         var year = date.getFullYear();
         return month + "/" + day + "/" + year;
     }
-
-    console.log(props)
 
     return (
         <div style={{ padding: '10px'}}>
@@ -54,7 +54,7 @@ export default function Goal(props) {
                     </LinkContainer>
                     </Card.Body>
                     <Card.Footer>
-                    {props.dateComplete ? <small>Completed on: {getFormattedDate(props.dateComplete)}</small> : <small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.date))} days</small>}
+                    {props.dateComplete ? <small>Completed on: {getFormattedDate(props.dateComplete)}</small> : <small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.date) + 1)} days</small>}
                 </Card.Footer>
             </Card>
         </div>

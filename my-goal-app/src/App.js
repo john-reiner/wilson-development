@@ -33,7 +33,7 @@ function App(props) {
   const handlePasswordChange = e => setPassword(e.target.value)
 
   const loginUser = () => {
-    fetch("http://localhost:3000/api/v1/users")
+    fetch("https://wilson-backend.herokuapp.com/api/v1/users")
     .then(response => response.json())
     .then(users => {
       let user = users.find(user => user.username === username)
@@ -49,7 +49,7 @@ function App(props) {
 
   useEffect(() => {
       if (loggedinUser.id) {
-        fetch(`http://localhost:3000/api/v1/users/${loggedinUser.id}`)
+        fetch(`https://wilson-backend.herokuapp.com/api/v1/users/${loggedinUser.id}`)
         .then(response => response.json())
         .then(user => {
           let taskIds = []
@@ -69,7 +69,7 @@ function App(props) {
 
   useEffect(() => {
     if (completeTaskids.length > 0) {
-      fetch(`http://localhost:3000/api/v1/users/${loggedinUser.id}`)
+      fetch(`https://wilson-backend.herokuapp.com/api/v1/users/${loggedinUser.id}`)
       .then(response => response.json())
       .then(user => {
         setLoggedinUser(user)
@@ -82,7 +82,7 @@ function App(props) {
 
   const completeTask = id => {
     if (completeTaskids.includes(id)) {
-      fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+      fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ function App(props) {
       setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
     } else {
       setCompleteTaskids([...completeTaskids, id])
-      fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
+      fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ function App(props) {
     let goal = loggedinUser.goals.find(goal => goal.id === id)
     setCompleteTaskids([...completeTaskids].filter(ids => goal.tasks.forEach(task => task.id)))
     setConfirmedCompletedGoal(goal.tasks)
-    fetch(`http://localhost:3000/api/v1/goals/${id}`, {
+    fetch(`https://wilson-backend.herokuapp.com/api/v1/goals/${id}`, {
       method: "PUT",
       headers: {
           'Content-Type': 'application/json'

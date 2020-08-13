@@ -10,7 +10,7 @@ export default function NewTask(props) {
     const onSubmit = e => {
         e.preventDefault()
         if (name !== '') {
-            fetch("http://localhost:3000/api/v1/tasks", {
+            fetch("https://wilson-backend.herokuapp.com/api/v1/tasks", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export default function NewTask(props) {
             .then(task => {
                 props.getNewTaskId(task.data.id)
             })
-            setName(name)
+            setName('')
         } else {
             alert('Feilds are empty')
         }
