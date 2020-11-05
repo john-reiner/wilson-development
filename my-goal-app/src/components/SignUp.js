@@ -26,7 +26,7 @@ function SignUp(props) {
                     password: password,
                 })
             })
-            props.history.push('/')
+            props.history.push('/wilson')
         } else {
             alert('Passwords are empty or do not match!')
         }
